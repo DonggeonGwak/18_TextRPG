@@ -10,12 +10,12 @@ class Character
 private:
 	std::string _name;
 	int _hp;
-	int _Max_Heart;
+	int _max_Heart;
 	int _level;
 	int _attack;
 	int _gold;
-	int _Experience_Point;
-	int _Max_Experience_Point;
+	int _experience_Point;
+	int _max_Experience_Point;
 	vector<Item*> _inventory;
 
 public:
@@ -24,11 +24,11 @@ public:
 	{
 		_name					= name_in;
 		_hp						= 200;
-		_Max_Heart				= 200;
+		_max_Heart				= 200;
 		_level					= 1;
 		_attack					= 30;
-		_Experience_Point		= 0;
-		_Max_Experience_Point	= 100;
+		_experience_Point		= 0;
+		_max_Experience_Point	= 100;
 		_gold					= 0;
 	}
 
@@ -38,8 +38,8 @@ public:
 			_hp = value;
 		else if (value <= 0)
 			_hp = 0;
-		else if(value >= _Max_Heart)
-			_hp = _Max_Heart;
+		else if(value >= _max_Heart)
+			_hp = _max_Heart;
 	}
 
 	void setAttack(int attack)
@@ -70,7 +70,7 @@ public:
 		cout << "Level: " << _level << endl;
 		cout << "공격력: " << _attack << endl;
 		cout << "소지금: " << _gold << endl;
-		cout << "경험치: " << _Experience_Point << endl;
+		cout << "경험치: " << _experience_Point << endl;
 	}
 
 	//레벨 업 하는 함수
@@ -80,7 +80,7 @@ public:
 		{
 			_level += 1;
 			_hp += (_level * 20);
-			_Max_Heart += (_level * 20);
+			_max_Heart += (_level * 20);
 			_attack += (_level * 5);
 			cout << "level이 올랐습니다! 현재 level: " << _level << endl;
 		}
