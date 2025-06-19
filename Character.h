@@ -96,7 +96,7 @@ public:
 	}
 
 	//가지고 있는 아이템을 보는 함수.
-	void ItemList(int index)
+	void ItemList()
 	{
 		if (_inventory.empty())
 		{
