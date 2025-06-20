@@ -54,17 +54,11 @@ public:
 		std::cout << "경험치 50을 획득했다냥!" << std::endl;
 	}
 
-	void setGold(int minGold, int maxGold)
+	void setGold(int gold)
 	{
-		int addGold;
-
-		addGold = rand() % (maxGold - minGold + 1) + minGold;
-
-		Gold += addGold;
-
-		std::cout << addGold << "를 얻었습니다. 총 소지금: " << Gold << "입니다." << std::endl;
-
+		Gold = gold;
 	}
+
 
 	// getter 함수들
 	std::string getName()
@@ -97,18 +91,34 @@ public:
 		return MaxExperiencePoint;
 	}
 
+	// 전투에서 골드를 얻는 함수
+	void addGold(int minGold, int maxGold)
+	{
+		int actGold;
 
+		actGold = rand() % (maxGold - minGold + 1) + minGold;
+
+		Gold += actGold;
+
+		std::cout << actGold << "를 얻었습니다. 총 소지금: " << Gold << "입니다." << std::endl;
+	}
+
+	// 부상을 입는 함수
 	void takeDamage(int damage)
 	{
 		Hp -= damage;
-		if (Hp < 0) Hp = 0;
+
+		if (Hp < 0)
+		{
+			Hp = 0;
+		}
 	}
 
 	//스테이터스 확인하는 함수
 	void displayStatus()
 	{
 		std::cout << "\n주인님의 스테이터스" << std::endl;
-		std::cout << "HP: " << Hp << std::endl;
+		std::cout << "HP: " << Hp << "/" << MaxHeart << std::endl;
 		std::cout << "Level: " << Level << std::endl;
 		std::cout << "공격력: " << Attack << std::endl;
 		std::cout << "소지금: " << Gold << std::endl;
@@ -123,8 +133,8 @@ public:
 		if (Level < 10)
 		{
 			Level += 1;
-			Hp += (MaxHeart - Hp);
 			MaxHeart += (Level * 20);
+			Hp += (MaxHeart - Hp);
 			Attack += (Level * 5);
 			ExperiencePoint = 0;
 			std::cout << "level이 올랐습니다! 현재 level: " << Level << std::endl;
@@ -133,6 +143,29 @@ public:
 		{
 			std::cout << "최대레벨입니다! 더 이상 level Up이 불가능 합니다." << std::endl;
 		}
+	}
+
+	//체력을 추가하는 함수
+	int heal(int potion)
+	{
+		if ((Hp + potion) > MaxHeart)
+		{
+			Hp = MaxHeart;
+			cout << "최대 체력까지 회복되었습니다." << endl;
+		}
+		else
+		{
+			Hp += potion;
+			cout << "체력이 " << potion << "회복되었습니다." << endl;
+		}
+	}
+
+	//공격력을 증가하는 함수
+	int increaseAttack(int upAttack)
+	{
+		Attack += upAttack;
+
+		cout << "공격력이 " << upAttack << "늘었습니다." << endl;
 	}
 
 	//void addItem(HealthPotion& healt)
