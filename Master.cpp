@@ -24,12 +24,12 @@ void clearScreen()
 
 int main()
 {
-	GameManager gameManager; // GameManager 객체 생성
+	GameManager manager; // GameManager 객체 생성
 	Character player; // Player 객체 생성
-	Goblin goblin(player.getLevel()) ; // Goblin 객체 생성
-	Orc orc(player.getLevel()); // Orc 객체 생성
-	Troll troll(player.getLevel()); // Troll 객체 생성
-	Slime slime(player.getLevel()); // Slime 객체 생성
+	Goblin goblin() ; // Goblin 객체 생성
+	Orc orc(); // Orc 객체 생성
+	Troll troll(); // Troll 객체 생성
+	Slime slime(); // Slime 객체 생성
 
 
 
@@ -38,6 +38,7 @@ int main()
 	cout << "냥냥 월드에 오신 것을 환영한다냥!!" << endl;
 	cout << "주인님,이름을 작성해 한다냥: " << endl;
 	cin >> CharacterName;
+	player.setName(CharacterName);
 		player.displayStatus();
 
 	while (player.getHp() > 0 && player.getLevel() < 10)
@@ -65,10 +66,9 @@ int main()
 		else if (choice == 2)
 		{
 			cout << "적과의 전투가 시작된다냥!" << endl;
-			srand(static_cast<int>(time(nullptr))); // 시드 설정
-			vector<Monster*> monsters = { &goblin, &orc ,&troll, &slime };
-			gameManager.randomMonster(monsters); // 랜덤 몬스터 선택 함수 호출
-			
+
+			manager.battle(player);
+
 		}
 		else if (choice == 3)
 		{

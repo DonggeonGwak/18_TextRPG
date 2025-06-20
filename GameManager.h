@@ -23,19 +23,58 @@ using namespace std;
 
 class GameManager {
 public:
-	void randomMonster(vector<Monster*> monsters)
-	{
-		if (monsters.empty()) {
-			cout << "No monsters available." << endl;
-			return;
-		}
-		int randomIndex = rand() % monsters.size();
-		monsters[randomIndex]->displayinfo();
-	}
-		
+    std::unique_ptr<Monster> generateMonster() {
+        static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+        std::uniform_int_distribution<int> dist(0, 3);
+
+        int choice = dist(rng);
+
+        switch (choice) {
+        case 0:
+            return std::make_unique<Goblin>();
+        case 1:
+            return std::make_unique<Orc>();
+        case 2:
+            return std::make_unique<Troll>();
+        case 3:
+            return std::make_unique<Slime>();
+        default:
+            return nullptr;
+        }
+    }
+
+    void battle(Character& player) {
+        std::unique_ptr<Monster> monster = generateMonster();
+
+        std::cout << "전투 시작! 몬스터 등장: " << monster->getName() << std::endl;
+
+        while (true) {
+            // 플레이어 턴
+            std::cout << "[Player 턴] " << player.getName() << "의 공격!" << std::endl;
+            monster->takeDamage(player.getAttack());
+            std::cout << monster->getName() << " HP: " << monster->getHealth() << std::endl;
+
+            if (monster->getHealth() <= 0) {
+                std::cout << monster->getName() << " 처치 성공!\n";
+                player.setExperiencePoint(50);
+                if (player.getExperiencePoint() == player.getMaxExperiencePoint())
+                    {
+                    player.LevelUp(player.getLevel());
+                    }
+                break;
+            }
+
+            // 몬스터 턴
+            std::cout << "[Monster 턴] " << monster->getName() << "의 공격!" << std::endl;
+            player.takeDamage(monster->getAttack());
+            std::cout << player.getName() << " HP: " << player.getHp() << std::endl;
+
+            if (player.getHp() <= 0) {
+                std::cout << player.getName() << "이(가) 쓰러졌습니다...\n";
+                break;
+            }
+
+            std::cout << "----------------------------------\n";
+        }
+    }
 };
-
-
-
-
-

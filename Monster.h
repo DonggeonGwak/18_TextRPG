@@ -20,8 +20,8 @@ private:
     int health;
     int attack;
 public:
-    Goblin(int level)
-        : name("Goblin"), health(80), attack(10) {
+    Goblin()
+        : name("Goblin"), health(50), attack(5) {
     }
 
     std::string getName() const override {
@@ -54,8 +54,8 @@ private:
     int attack;
 
 public:
-    Orc(int level)
-        : name("Orc"), health(120), attack(20) {
+    Orc()
+        : name("Orc"), health(50), attack(10) {
     }
 
     std::string getName() const override {
@@ -87,8 +87,8 @@ public:
         int attack;
 
     public:
-        Troll(int level)
-            : name("Troll"), health(150), attack(15) {
+        Troll()
+            : name("Troll"), health(50), attack(10) {
         }
 
         std::string getName() const override {
@@ -120,7 +120,7 @@ public:
         int attack;
 
     public:
-        Slime(int level)
+        Slime()
             : name("Slime"), health(50), attack(5) {
         }
 

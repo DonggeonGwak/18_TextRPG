@@ -48,6 +48,16 @@ public:
 		Attack = attack;
 	}
 
+	void setExperiencePoint(int Exp)
+	{
+		ExperiencePoint += Exp;
+	}
+
+	std::string getName()
+	{
+		return Name;
+	}
+
 	int getHp()
 	{
 		return Hp;
@@ -61,6 +71,23 @@ public:
 	int getLevel()
 	{
 		return Level;
+	}
+
+	int getExperiencePoint()
+	{
+		return ExperiencePoint;
+	}
+
+	int getMaxExperiencePoint()
+	{
+		return MaxExperiencePoint;
+	}
+
+
+	void takeDamage(int damage)
+	{
+		Hp -= damage;
+		if (Hp < 0) Hp = 0;
 	}
 
 	//스테이터스 확인하는 함수
@@ -90,7 +117,7 @@ public:
 		}
 		else
 		{
-			cout << "최대레벨입니다! 더 이상 level Up이 불가능 합니다." << endl;
+			std::cout << "최대레벨입니다! 더 이상 level Up이 불가능 합니다." << std::endl;
 		}
 	}
 
