@@ -1,6 +1,8 @@
 #pragma once
-#include <"Character.h">
+#include <iostream>
+//#include "Character.h"
 
+class Character; // Forward declaration
 
 class Item {
 public:
@@ -11,20 +13,14 @@ public:
 
 class HealthPotion : public Item {                
 public:
-    void use(Character& player) override {
-        std::cout << " 체력 포션 사용 +50 체력 회복\n";
-        player.heal(50);
-    }
-    std::string getName() const override { return "체력 포션"; }
+    void use(Character& player) override;
+    std::string getName() const override;
 };
 
 class AttackPotion : public Item {
 public:
-    void use(Character& player) override {
-        std::cout << " 공격력 포션 사용 +10 공격력 증가\n";
-        player.increaseAttack(10);
-    }
-    std::string getName() const override { return "공격력 포션"; }
+    void use(Character& player) override;
+    std::string getName() const override;
 };
 
 //void heal(int heal) {

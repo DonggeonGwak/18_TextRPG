@@ -146,26 +146,26 @@ public:
 	}
 
 	//체력을 추가하는 함수
-	int heal(int potion)
+	void heal(int potion)
 	{
 		if ((Hp + potion) > MaxHeart)
 		{
 			Hp = MaxHeart;
-			cout << "최대 체력까지 회복되었습니다." << endl;
+			std::cout << "최대 체력까지 회복되었습니다." << std::endl;
 		}
 		else
 		{
 			Hp += potion;
-			cout << "체력이 " << potion << "회복되었습니다." << endl;
+			std::cout << "체력이 " << potion << "회복되었습니다." << std::endl;
 		}
 	}
 
 	//공격력을 증가하는 함수
-	int increaseAttack(int upAttack)
+	void increaseAttack(int upAttack)
 	{
 		Attack += upAttack;
 
-		cout << "공격력이 " << upAttack << "늘었습니다." << endl;
+		std::cout << "공격력이 " << upAttack << "늘었습니다." << std::endl;
 	}
 
 	//void addItem(HealthPotion& healt)

@@ -6,8 +6,10 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <memory>
 #include "Monster.h"
 #include "Character.h"
+#include "Item.h"
  // C++11부터 제공되는 난수 생성 라이브러리
 
 using namespace std;
@@ -54,10 +56,11 @@ public:
             monster->takeDamage(player.getAttack());
             std::cout << monster->getName() << " HP: " << monster->getHealth() << std::endl;
 
-            if (monster->getHealth() <= 0) {
+            if (monster->getHealth() <= 0) 
+            {
                 std::cout << monster->getName() << " 처치 성공!\n";
                 player.setExperiencePoint(50);
-                player.setGold(10, 20);
+				player.addGold(10, 20);
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
                     {
                     player.LevelUp(player.getLevel());
@@ -70,7 +73,8 @@ public:
             player.takeDamage(monster->getAttack());
             std::cout << player.getName() << " HP: " << player.getHp() << std::endl;
 
-            if (player.getHp() <= 0) {
+            if (player.getHp() <= 0) 
+            {
                 std::cout << player.getName() << "이(가) 쓰러졌습니다...\n";
                 break;
             }
