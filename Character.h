@@ -3,86 +3,90 @@
 #include <string>
 #include <vector>
 
-//#include "Item.h"
+#include "Item.h"
 
 class Character
 {
 private:
-	std::string _name;
-	int _hp;
-	int _max_Heart;
-	int _level;
-	int _attack;
-	int _gold;
-	int _experience_Point;
-	int _max_Experience_Point;
+	std::string Name;
+	int Hp;
+	int MaxHeart;
+	int Level;
+	int Attack;
+	int Gold;
+	int ExperiencePoint;
+	int MaxExperiencePoint;
 	vector<Item*> _inventory;
 
 public:
 
-	Character(const std::string& name_in)
+	Character()
+		: Name(" ")
+		, Hp(200)
+		, MaxHeart(200)
+		, Level(1)
+		, Attack(30)
+		, ExperiencePoint(0)
+		, MaxExperiencePoint(100)
+		, Gold(0)
 	{
-		_name					= name_in;
-		_hp						= 200;
-		_max_Heart				= 200;
-		_level					= 1;
-		_attack					= 30;
-		_experience_Point		= 0;
-		_max_Experience_Point	= 100;
-		_gold					= 0;
 	}
 
-	void setHp(int value)
+
+	void setName(const string& name)
 	{
-		if (_hp > 0)
-			_hp = value;
-		else if (value <= 0)
-			_hp = 0;
-		else if(value >= _max_Heart)
-			_hp = _max_Heart;
+		Name = name;
+	}
+
+	void setHp(int hp)
+	{
+		Hp = hp;
 	}
 
 	void setAttack(int attack)
 	{
-		_attack = attack;
+		Attack = attack;
 	}
 
 	int getHp()
 	{
-		return _hp;
+		return Hp;
 	}
 
 	int getAttack()
 	{
-		return _attack;
+		return Attack;
 	}
 
 	int getLevel()
 	{
-		return _level;
+		return Level;
 	}
 
 	//스테이터스 확인하는 함수
 	void displayStatus()
 	{
-		cout << "\n캐릭터의 스테터스" << endl;
-		cout << "HP: " << _hp << endl;
-		cout << "Level: " << _level << endl;
-		cout << "공격력: " << _attack << endl;
-		cout << "소지금: " << _gold << endl;
-		cout << "경험치: " << _experience_Point << endl;
+		std::cout << "\n캐릭터의 스테터스" << std::endl;
+		std::cout << "HP: " << Hp << std::endl;
+		std::cout << "Level: " << Level << std::endl;
+		std::cout << "공격력: " << Attack << std::endl;
+		std::cout << "소지금: " << Gold << std::endl;
+		std::cout << "경험치: " << ExperiencePoint << std::endl;
 	}
 
 	//레벨 업 하는 함수
-	void LevelUp()
+	void LevelUp(int level)
 	{
-		if (_level < 10)
+		Level = level;
+
+		if (Level < 10)
 		{
-			_level += 1;
-			_hp += (_level * 20);
-			_max_Heart += (_level * 20);
-			_attack += (_level * 5);
-			cout << "level이 올랐습니다! 현재 level: " << _level << endl;
+			Level += 1;
+			Hp += (MaxHeart - Hp);
+			MaxHeart += (Level * 20);
+			Attack += (Level * 5);
+			ExperiencePoint = 0;
+			std::cout << "level이 올랐습니다! 현재 level: " << Level << std::endl;
 		}
 		else
 		{
@@ -90,9 +94,9 @@ public:
 		}
 	}
 
-	void addItem()
+	void addItem(HealthPotion& healt)
 	{
-
+		_inventory.push_back(healt);
 	}
 
 	//가지고 있는 아이템을 보는 함수.
