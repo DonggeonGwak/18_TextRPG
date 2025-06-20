@@ -25,7 +25,7 @@ void clearScreen()
 int main()
 {
 	GameManager gameManager; // GameManager 객체 생성
-	Character player("주인님"); // Player 객체 생성
+	Character player; // Player 객체 생성
 	Goblin goblin(player.getLevel()) ; // Goblin 객체 생성
 	Orc orc(player.getLevel()); // Orc 객체 생성
 	Troll troll(player.getLevel()); // Troll 객체 생성
