@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void clearScreen() 
+void clearScreen()
 {
 	system(CLEAR_COMMAND);
 }
@@ -26,7 +26,7 @@ int main()
 {
 	GameManager manager; // GameManager 객체 생성
 	Character player; // Player 객체 생성
-	Goblin goblin() ; // Goblin 객체 생성
+	Goblin goblin(); // Goblin 객체 생성
 	Orc orc(); // Orc 객체 생성
 	Troll troll(); // Troll 객체 생성
 	Slime slime(); // Slime 객체 생성
@@ -41,12 +41,12 @@ int main()
 	cout << "=      주인님! 이름을 알려달라냥!      =" << endl;
 	cout << "=                                      =" << endl;
 	cout << "========================================" << endl << endl;
-	cout << " 나의 이름 : "; 
+	cout << " 나의 이름 : ";
 	getline(cin, CharacterName);
 	player.setName(CharacterName);
 
 	clearScreen();
-	
+
 	cout << CharacterName << " 님의 모험을 시작한다냥!" << endl << endl;
 
 	while (player.getHp() > 0 && player.getLevel() < 10)
@@ -61,7 +61,7 @@ int main()
 		cout << "=                                      =" << endl;
 		cout << "========================================" << endl << endl;
 		cout << "진행 선택 : ";
-		
+
 		int choice;
 		cin >> choice;
 		clearScreen();
@@ -94,6 +94,6 @@ int main()
 			cout << "잘못된 입력값이다냥. 1,2,3,4 중에 입력하라냥." << endl;
 		}
 	}
-	
+
 	return 0;
 }
