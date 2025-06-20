@@ -53,6 +53,10 @@ public:
 		ExperiencePoint += Exp;
 	}
 
+	void setGold(int minGold, int maxGold)
+	{
+		Gold += rand() % (maxGold - minGold + 1) + minGold;
+	}
 
 	// getter ÇÔ¼öµé
 	std::string getName()
