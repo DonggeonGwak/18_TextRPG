@@ -1,38 +1,39 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include <"Character.h">
+
 
 class Item {
 public:
+    virtual ~Item() = default;
     virtual void use(Character& player) = 0;
     virtual std::string getName() const = 0;
 };
 
-class HealthPotion : public Item {
+class HealthPotion : public Item {                
 public:
     void use(Character& player) override {
-        std::cout << " Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½! +50 Ã¼ï¿½ï¿½ È¸ï¿½ï¿½\n";
+        std::cout << " Ã¼·Â Æ÷¼Ç »ç¿ë +50 Ã¼·Â È¸º¹\n";
         player.heal(50);
     }
-    std::string getName() const override { return "Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"; }
+    std::string getName() const override { return "Ã¼·Â Æ÷¼Ç"; }
 };
 
 class AttackPotion : public Item {
 public:
     void use(Character& player) override {
-        std::cout << " ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½! +10 ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½\n";
+        std::cout << " °ø°Ý·Â Æ÷¼Ç »ç¿ë +10 °ø°Ý·Â Áõ°¡\n";
         player.increaseAttack(10);
     }
-    std::string getName() const override { return "ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½"; }
+    std::string getName() const override { return "°ø°Ý·Â Æ÷¼Ç"; }
 };
 
 //void heal(int heal) {
 //    health += heal;
 //    if (health > maxHealth) health = maxHealth;
-//    cout << name << " Ã¼ï¿½ï¿½ " << heal << " È¸ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½: " << health << "/" << maxHealth << ")\n";
+//    cout << name << " Ã¼·Â " << heal << " È¸º¹ (ÇöÀç Ã¼·Â: " << health << "/" << maxHealth << ")\n";
 //}
 //
 //void increaseAttack(int att) {
 //    attackPower += att;
-//    cout << name << " ï¿½ï¿½ï¿½Ý·ï¿½ " << att << " ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½: " << attackPower << ")\n";
+//    cout << name << " °ø°Ý·Â " << att << " Áõ°¡ (ÇöÀç °ø°Ý·Â: " << attackPower << ")\n";
 //}
