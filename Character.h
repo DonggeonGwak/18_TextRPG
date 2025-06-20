@@ -56,8 +56,14 @@ public:
 
 	void setGold(int minGold, int maxGold)
 	{
-		Gold += rand() % (maxGold - minGold + 1) + minGold;
-		
+		int addGold;
+
+		addGold = rand() % (maxGold - minGold + 1) + minGold;
+
+		Gold += addGold;
+
+		std::cout << addGold << "를 얻었습니다. 총 소지금: " << Gold << "입니다." << std::endl;
+
 	}
 
 	// getter 함수들
