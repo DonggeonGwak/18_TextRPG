@@ -32,7 +32,7 @@ public:
 	{
 	}
 
-
+	// setter 함수들
 	void setName(const std::string& name)
 	{
 		Name = name;
@@ -53,6 +53,8 @@ public:
 		ExperiencePoint += Exp;
 	}
 
+
+	// getter 함수들
 	std::string getName()
 	{
 		return Name;
