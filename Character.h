@@ -48,14 +48,16 @@ public:
 		Attack = attack;
 	}
 
-	void setExperiencePoint(int Exp)
+	void setExperiencePoint(int exp)
 	{
-		ExperiencePoint += Exp;
+		ExperiencePoint += exp;
+		std::cout << "경험치 50을 획득했다냥!" << std::endl;
 	}
 
 	void setGold(int minGold, int maxGold)
 	{
 		Gold += rand() % (maxGold - minGold + 1) + minGold;
+		
 	}
 
 	// getter 함수들
@@ -99,7 +101,7 @@ public:
 	//스테이터스 확인하는 함수
 	void displayStatus()
 	{
-		std::cout << "\n캐릭터의 스테터스" << std::endl;
+		std::cout << "\n주인님의 스테이터스" << std::endl;
 		std::cout << "HP: " << Hp << std::endl;
 		std::cout << "Level: " << Level << std::endl;
 		std::cout << "공격력: " << Attack << std::endl;
