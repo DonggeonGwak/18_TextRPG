@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Item.h"
+//#include "Item.h"
 
 class Character
 {
@@ -16,7 +16,7 @@ private:
 	int Gold;
 	int ExperiencePoint;
 	int MaxExperiencePoint;
-	vector<Item*> _inventory;
+	//vector<Item*> _inventory;
 
 public:
 
@@ -33,7 +33,7 @@ public:
 	}
 
 
-	void setName(const string& name)
+	void setName(const std::string& name)
 	{
 		Name = name;
 	}
@@ -94,29 +94,29 @@ public:
 		}
 	}
 
-	void addItem(HealthPotion& healt)
-	{
-		_inventory.push_back(healt);
-	}
+	//void addItem(HealthPotion& healt)
+	//{
+	//	_inventory.push_back(healt);
+	//}
 
-	//가지고 있는 아이템을 보는 함수.
-	void ItemList()
-	{
-		if (_inventory.empty())
-		{
-			cout << "\n현재 가지고 있는 아이템이 없습니다." << endl;
-		}
-		else
-		{
-			cout << "\n인벤토리에 있는 아이템" << endl;
+	////가지고 있는 아이템을 보는 함수.
+	//void ItemList()
+	//{
+	//	if (_inventory.empty())
+	//	{
+	//		cout << "\n현재 가지고 있는 아이템이 없습니다." << endl;
+	//	}
+	//	else
+	//	{
+	//		cout << "\n인벤토리에 있는 아이템" << endl;
 
-			for (size_t i = 0; i < _inventory.size(); i++)
-			{
-				cout << _inventory[i] << endl;
-			}
-			cout << endl;
-		}
-	}
+	//		for (size_t i = 0; i < _inventory.size(); i++)
+	//		{
+	//			cout << _inventory[i] << endl;
+	//		}
+	//		cout << endl;
+	//	}
+	//}
 
 
 };
