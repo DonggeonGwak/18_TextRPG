@@ -57,6 +57,7 @@ public:
             if (monster->getHealth() <= 0) {
                 std::cout << monster->getName() << " 처치 성공!\n";
                 player.setExperiencePoint(50);
+                player.setGold(10, 20);
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
                     {
                     player.LevelUp(player.getLevel());
