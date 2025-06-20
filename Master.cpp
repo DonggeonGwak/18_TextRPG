@@ -34,22 +34,34 @@ int main()
 
 
 	string CharacterName;
-	
-	cout << "냥냥 월드에 오신 것을 환영한다냥!!" << endl;
-	cout << "주인님,이름을 작성해 한다냥: " << endl;
-	cin >> CharacterName;
+	cout << "========================================" << endl;
+	cout << "=                                      =" << endl;
+	cout << "=   냥냥 월드에 오신 것을 환영한다냥!  =" << endl;
+	cout << "=                                      =" << endl;
+	cout << "=      주인님! 이름을 알려달라냥!      =" << endl;
+	cout << "=                                      =" << endl;
+	cout << "========================================" << endl << endl;
+	cout << " 나의 이름 : "; 
+	getline(cin, CharacterName);
 	player.setName(CharacterName);
-		player.displayStatus();
+
+	clearScreen();
+	
+	cout << CharacterName << " 님의 모험을 시작한다냥!" << endl << endl;
 
 	while (player.getHp() > 0 && player.getLevel() < 10)
 	{
+		cout << "========================================" << endl;
+		cout << "=                                      =" << endl;
+		cout << "=        무엇을 하시겠습니까?          =" << endl;
+		cout << "=                                      =" << endl;
+		cout << "=      1. 플레이어 정보 확인           =" << endl;
+		cout << "=      2. 전투 시작                    =" << endl;
+		cout << "=      3. 게임 종료                    =" << endl;
+		cout << "=                                      =" << endl;
+		cout << "========================================" << endl << endl;
+		cout << "진행 선택 : ";
 		
-		cout << "주인님, " << CharacterName << " 님의 모험을 시작한다냥!" << endl;
-		cout << "1. 플레이어 스텟이다냥!!" << endl;
-		cout << "2. 싸움 시작이다냥!!" << endl;
-		cout << "3. 게임 종료이다냥!!" << endl;
-		
-
 		int choice;
 		cin >> choice;
 		clearScreen();
@@ -62,6 +74,7 @@ int main()
 		if (choice == 1)
 		{
 			player.displayStatus(); // 플레이어 스텟 출력 함수 호출
+			cout << endl;
 		}
 		else if (choice == 2)
 		{
