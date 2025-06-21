@@ -66,13 +66,14 @@ public:
 
 
             std::cout << monster->getName() 
-                      << " HP: " << monster->getHealth() 
+                      << " HP: " << monster->getHealth()
+                      << "/" << monster->getMaxHealth()
                       << std::endl << std::endl;
 
             if (monster->getHealth() <= 0) 
             {
                 std::cout << monster->getName() << " 처치 성공!\n" << endl;
-                player.setExperiencePoint(50);
+                player.addExperiencePoint(50);
 				player.addGold(10, 20);
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
                     {
@@ -90,7 +91,8 @@ public:
 
             player.takeDamage(monster->getAttack());
             std::cout << player.getName() 
-                      << " HP: " << player.getHp() 
+                      << " HP: " << player.getHp()
+                      << "/" << player.getMaxHeart()
                       << std::endl;
 
             if (player.getHp() <= 0) 
