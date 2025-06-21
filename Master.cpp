@@ -49,7 +49,7 @@ int main()
 
 	cout << CharacterName << " 님의 모험을 시작한다냥!" << endl << endl;
 
-	while (true)
+	while (player.getLevel() < 10)
 	{
 		cout << "========================================" << endl;
 		cout << "=                                      =" << endl;
@@ -57,8 +57,8 @@ int main()
 		cout << "=                                      =" << endl;
 		cout << "=      1. 플레이어 정보 확인           =" << endl;
 		cout << "=      2. 전투 시작                    =" << endl;
-		cout << "=      3. 아이템 사용					=" << endl;
-		cout << "=		4. 게임 종료					=" << endl;
+		cout << "=      3. 아이템 사용                  =" << endl;
+		cout << "=      4. 게임 종료                    =" << endl;
 		cout << "=                                      =" << endl;
 		cout << "========================================" << endl << endl;
 		cout << "진행 선택 : ";
@@ -79,7 +79,6 @@ int main()
 		}
 		else if (choice == 2)
 		{
-			cout << "적과의 전투가 시작된다냥!" << endl;
 
 			manager.battle(player);
 
@@ -101,6 +100,6 @@ int main()
 			cout << "잘못된 입력값이다냥. 1,2,3,4 중에 입력하라냥." << endl;
 		}
 	}
-
+	cout << "만랩을 달성했습니다 ! 게임 클리어 !" << endl;
 	return 0;
 }

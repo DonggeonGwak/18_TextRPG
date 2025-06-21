@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "Item.h"
 
 class Character
 {
@@ -100,7 +99,7 @@ public:
 
 		Gold += actGold;
 
-		std::cout << actGold << "를 얻었습니다. 총 소지금: " << Gold << "입니다." << std::endl;
+		std::cout << actGold << " Gold를 얻었습니다. 총 소지금: " << Gold << " Gold입니다." << std::endl;
 	}
 
 	// 부상을 입는 함수

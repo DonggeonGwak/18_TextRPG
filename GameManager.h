@@ -9,7 +9,6 @@
 #include <memory>
 #include "Monster.h"
 #include "Character.h"
-#include "Item.h"
  // C++11부터 제공되는 난수 생성 라이브러리
 
 using namespace std;
@@ -25,7 +24,7 @@ using namespace std;
 
 class GameManager {
 public:
-    std::unique_ptr<Monster> generateMonster() {
+    std::unique_ptr<Monster> generateMonster(int playerLevel) {
         static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
         std::uniform_int_distribution<int> dist(0, 3);
 
@@ -33,32 +32,46 @@ public:
 
         switch (choice) {
         case 0:
-            return std::make_unique<Goblin>();
+            return std::make_unique<Goblin>(playerLevel);
         case 1:
-            return std::make_unique<Orc>();
+            return std::make_unique<Orc>(playerLevel);
         case 2:
-            return std::make_unique<Troll>();
+            return std::make_unique<Troll>(playerLevel);
         case 3:
-            return std::make_unique<Slime>();
+            return std::make_unique<Slime>(playerLevel);
         default:
             return nullptr;
         }
     }
 
     void battle(Character& player) {
-        std::unique_ptr<Monster> monster = generateMonster();
+        std::unique_ptr<Monster> monster = generateMonster(player.getLevel());
 
-        std::cout << "전투 시작! 몬스터 등장: " << monster->getName() << std::endl;
+        std::cout << "전투 시작이다냥 ! " << monster->getName() 
+                  << " 몬스터 등장 ! " << std::endl << std::endl;
+        std::cout << "=몬스터 스테이터스=" << std::endl;
 
+        monster->displayinfo();
+        std::cout << std::endl;
+         
         while (true) {
             // 플레이어 턴
-            std::cout << "[Player 턴] " << player.getName() << "의 공격!" << std::endl;
+            std::cout << "[Player턴] " << player.getName()
+                      << "의 공격!" << std::endl
+                      << player.getName() << "의 데미지 : "
+                      << player.getAttack();
+
             monster->takeDamage(player.getAttack());
-            std::cout << monster->getName() << " HP: " << monster->getHealth() << std::endl;
+            std::cout << std::endl;
+
+
+            std::cout << monster->getName() 
+                      << " HP: " << monster->getHealth() 
+                      << std::endl << std::endl;
 
             if (monster->getHealth() <= 0) 
             {
-                std::cout << monster->getName() << " 처치 성공!\n";
+                std::cout << monster->getName() << " 처치 성공!\n" << endl;
                 player.setExperiencePoint(50);
 				player.addGold(10, 20);
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
@@ -69,9 +82,16 @@ public:
             }
 
             // 몬스터 턴
-            std::cout << "[Monster 턴] " << monster->getName() << "의 공격!" << std::endl;
+            std::cout << "[Monster 턴] "
+                << monster->getName()
+                << "의 공격!" << std::endl
+                << monster->getName() << "의 데미지 :"
+                << monster->getAttack() << std::endl;
+
             player.takeDamage(monster->getAttack());
-            std::cout << player.getName() << " HP: " << player.getHp() << std::endl;
+            std::cout << player.getName() 
+                      << " HP: " << player.getHp() 
+                      << std::endl;
 
             if (player.getHp() <= 0) 
             {
