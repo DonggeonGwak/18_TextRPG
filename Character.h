@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "Item.h"
 
 class Character
 {
@@ -48,10 +47,11 @@ public:
 		Attack = attack;
 	}
 
-	void setExperiencePoint(int exp)
+	void addExperiencePoint(int exp)
 	{
 		ExperiencePoint += exp;
-		std::cout << "경험치 50을 획득했다냥!" << std::endl;
+		std::cout << Name << "(이)가 경험치 50을 획득했다냥!" << std::endl;
+		std::cout << "현재 경험치 : " << ExperiencePoint << "/"<< MaxExperiencePoint << std::endl;
 	}
 
 	void setGold(int gold)
@@ -91,6 +91,12 @@ public:
 		return MaxExperiencePoint;
 	}
 
+	// 승우님 죄송해요 또 함수를 만들었어요....
+	int getMaxHeart()
+	{
+		return MaxHeart;
+	}
+
 	// 전투에서 골드를 얻는 함수
 	void addGold(int minGold, int maxGold)
 	{
@@ -100,7 +106,7 @@ public:
 
 		Gold += actGold;
 
-		std::cout << actGold << "를 얻었습니다. 총 소지금: " << Gold << "입니다." << std::endl;
+		std::cout << actGold << " Gold를 얻었습니다. 총 소지금: " << Gold << " Gold입니다." << std::endl;
 	}
 
 	// 부상을 입는 함수

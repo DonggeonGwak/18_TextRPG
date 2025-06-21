@@ -1,27 +1,44 @@
 #pragma once
 #include <string>
 
-class Monster {
+class Monster 
+{
 public:
     
     virtual std::string getName() const = 0;
     virtual int getHealth() const = 0;
+    virtual int getMaxHealth() const = 0;
     virtual int getAttack() const = 0;
     virtual void takeDamage(int damage) = 0;
 	virtual void displayinfo() const = 0;
-	//virtual ~Monster() = default; // Virtual destructor for proper cleanup
     virtual ~Monster() {}
 };
 
 // Goblin.h
-class Goblin : public Monster {
+class Goblin : public Monster 
+{
 private:
     std::string name;
     int health;
+    int Maxhealth;
     int attack;
+
+    int getRandomInRange(int min, int max) {
+        static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+        std::uniform_int_distribution<int> dist(min, max);
+        return dist(rng);
+    }
 public:
-    Goblin()
-        : name("Goblin"), health(50), attack(5) {
+    Goblin(int playerLevel)
+        : name("고블린") {
+        int minHP = playerLevel * 20;
+        int maxHP = playerLevel * 30;
+        int minAtk = playerLevel * 5;
+        int maxAtk = playerLevel * 10;
+
+        Maxhealth = getRandomInRange(minHP, maxHP);
+        health = Maxhealth;
+        attack = getRandomInRange(minAtk, maxAtk);
     }
 
     std::string getName() const override {
@@ -29,6 +46,10 @@ public:
     }
 
     int getHealth() const override {
+        return health;
+    }
+
+    int getMaxHealth() const override {
         return health;
     }
 
@@ -40,8 +61,10 @@ public:
         health -= damage;
         if (health < 0) health = 0;
     }
-    void displayinfo()const override {
-        std::cout << "Monster: " << name << "\nHealth: " << health << "\nAttack: " << attack << std::endl;
+    void displayinfo() const override {
+        std::cout << "몬스터 : " << name
+            << "\n최대체력 : " << Maxhealth
+            << "\n공격력 : " << attack << std::endl;
 	}
 };
 
@@ -51,99 +74,186 @@ class Orc : public Monster
 private:
     std::string name;
     int health;
+    int Maxhealth;
     int attack;
 
+    int getRandomInRange(int min, int max) 
+    {
+        static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+        std::uniform_int_distribution<int> dist(min, max);
+        return dist(rng);
+    }
 public:
-    Orc()
-        : name("Orc"), health(50), attack(10) {
+    Orc(int playerLevel)
+        : name("오크") 
+    {
+        int minHP = playerLevel * 20;
+        int maxHP = playerLevel * 30;
+        int minAtk = playerLevel * 5;
+        int maxAtk = playerLevel * 10;
+
+        Maxhealth = getRandomInRange(minHP, maxHP);
+        health = Maxhealth;
+        attack = getRandomInRange(minAtk, maxAtk);
     }
 
-    std::string getName() const override {
+    std::string getName() const override 
+    {
         return name;
     }
 
-    int getHealth() const override {
+    int getHealth() const override 
+    {
         return health;
     }
 
-    int getAttack() const override {
+    int getMaxHealth() const override 
+    {
+        return health;
+    }
+
+    int getAttack() const override 
+    {
         return attack;
     }
 
-    void takeDamage(int damage) override {
+    void takeDamage(int damage) override 
+    {
         health -= damage;
         if (health < 0) health = 0;
     }
-    void displayinfo()const override {
-        std::cout << "Monster: " << name << "\nHealth: " << health << "\nAttack: " << attack << std::endl;
+    void displayinfo()const override 
+    {
+        std::cout << "몬스터 : " << name
+            << "\n최대체력 : " << Maxhealth
+            << "\n공격력 : " << attack << std::endl;
     }
 };
 
-// Troll.h
-    class Troll : public Monster {
-    private:
-        std::string name;
-        int health;
-        int attack;
 
-    public:
-        Troll()
-            : name("Troll"), health(50), attack(10) {
-        }
+class Troll : public Monster 
+{
+private:
+    std::string name;
+    int health;
+    int Maxhealth;
+    int attack;
 
-        std::string getName() const override {
-            return name;
-        }
+    int getRandomInRange(int min, int max) 
+    {
+        static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+        std::uniform_int_distribution<int> dist(min, max);
+        return dist(rng);
+    }
 
-        int getHealth() const override {
-            return health;
-        }
+public:
+    Troll(int playerLevel)
+        : name("트롤") 
+    {
+        int minHP = playerLevel * 20;
+        int maxHP = playerLevel * 30;
+        int minAtk = playerLevel * 5;
+        int maxAtk = playerLevel * 10;
 
-        int getAttack() const override {
-            return attack;
-        }
+        Maxhealth = getRandomInRange(minHP, maxHP);
+        health = Maxhealth;
+        attack = getRandomInRange(minAtk, maxAtk);
+    }
 
-        void takeDamage(int damage) override {
-            health -= damage;
-            if (health < 0) health = 0;
-        }
-        void displayinfo()const override {
-            std::cout << "Monster: " << name << "\nHealth: " << health << "\nAttack: " << attack << std::endl;
-        }
-    };
+    std::string getName() const override 
+    {
+        return name;
+    }
+
+    int getHealth() const override 
+    {
+        return health;
+    }
+
+    int getMaxHealth() const override 
+    {
+        return health;
+    }
+
+    int getAttack() const override
+    {
+        return attack;
+    }
+
+    void takeDamage(int damage) override 
+    {
+        health -= damage;
+        if (health < 0) health = 0;
+    }
+    void displayinfo()const override 
+    {
+        std::cout << "몬스터 : " << name
+                  << "\n최대체력 : " << Maxhealth
+                  << "\n공격력 : " << attack << std::endl;
+    }
+};
 
 // Slime.h
-    class Slime : public Monster {
-    private:
-        std::string name;
-        int health;
-        int attack;
+class Slime : public Monster {
+private:
+    std::string name;
+    int health;
+    int Maxhealth;
+    int attack;
 
-    public:
-        Slime()
-            : name("Slime"), health(50), attack(5) {
-        }
+    int getRandomInRange(int min, int max) 
+    {
+        static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
+        std::uniform_int_distribution<int> dist(min, max);
+        return dist(rng);
+    }
 
-        std::string getName() const override {
-            return name;
-        }
+public:
+    Slime(int playerLevel)
+        : name("슬라임") 
+    {
+        int minHP = playerLevel * 20;
+        int maxHP = playerLevel * 30;
+        int minAtk = playerLevel * 5;
+        int maxAtk = playerLevel * 10;
 
-        int getHealth() const override {
-            return health;
-        }
+        Maxhealth = getRandomInRange(minHP, maxHP);
+        health = Maxhealth;
+        attack = getRandomInRange(minAtk, maxAtk);
+    }
 
-        int getAttack() const override {
-            return attack;
-        }
+    std::string getName() const override 
+    {
+        return name;
+    }
 
-        void takeDamage(int damage) override {
-            health -= damage;
-            if (health < 0) health = 0;
-        }
-        void displayinfo()const override {
-            std::cout << "Monster: " << name << "\nHealth: " << health << "\nAttack: " << attack << std::endl;
-        }
-    };
+    int getHealth() const override 
+    {
+        return health;
+    }
+
+    int getMaxHealth() const override
+    {
+        return health;
+    }
+
+    int getAttack() const override 
+    {
+        return attack;
+    }
+
+    void takeDamage(int damage) override 
+    {
+        health -= damage;
+        if (health < 0) health = 0;
+    }
+    void displayinfo()const override
+    {
+        std::cout << "몬스터 : " << name
+            << "\n최대체력 : " << Maxhealth
+            << "\n공격력 : " << attack << std::endl;
+    }
+};
 
     
 
