@@ -255,5 +255,56 @@ public:
     }
 };
 
+class Dragon : public Monster
+{
+private:
+    std::string name;
+    int health;
+    int Maxhealth;
+    int attack;
+
+public:
+    Dragon()
+        : name("드래곤")
+    {
+        Maxhealth = 500;
+        health = Maxhealth;
+        attack = 70;
+    }
+
+    std::string getName() const override
+    {
+        return name;
+    }
+
+    int getHealth() const override
+    {
+        return health;
+    }
+
+    int getMaxHealth() const override
+    {
+        return Maxhealth;
+    }
+
+    int getAttack() const override
+    {
+        return attack;
+    }
+
+    void takeDamage(int damage) override
+    {
+        health -= damage;
+        if (health < 0) health = 0;
+    }
+
+    void displayinfo() const override
+    {
+        std::cout << "[보스 몬스터 등장]" << std::endl;
+        std::cout << "몬스터 : " << name
+            << "\n최대체력 : " << Maxhealth
+            << "\n공격력 : " << attack << std::endl;
+    }
+};
     
 

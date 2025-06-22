@@ -49,7 +49,7 @@ int main()
 
 	cout << CharacterName << " 님의 모험을 시작한다냥!" << endl << endl;
 
-	while (player.getLevel() < 10)
+	while (true)
 	{
 		cout << "========================================" << endl;
 		cout << "=                                      =" << endl;
