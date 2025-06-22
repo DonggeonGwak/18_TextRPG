@@ -50,7 +50,7 @@ public:
     }
 
     int getMaxHealth() const override {
-        return health;
+        return Maxhealth;
     }
 
     int getAttack() const override {
@@ -109,7 +109,7 @@ public:
 
     int getMaxHealth() const override 
     {
-        return health;
+        return Maxhealth;
     }
 
     int getAttack() const override 
@@ -172,7 +172,7 @@ public:
 
     int getMaxHealth() const override 
     {
-        return health;
+        return Maxhealth;
     }
 
     int getAttack() const override
@@ -234,7 +234,7 @@ public:
 
     int getMaxHealth() const override
     {
-        return health;
+        return Maxhealth;
     }
 
     int getAttack() const override 

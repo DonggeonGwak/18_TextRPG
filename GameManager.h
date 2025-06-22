@@ -7,22 +7,21 @@
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
+#include <map>
+#include <string>
 #include "Monster.h"
 #include "Character.h"
  // C++11부터 제공되는 난수 생성 라이브러리
 
-using namespace std;
 
-//플레이어 HP가 0 이상일 경우 게임을 계속 진행
-//플레이어 HP가 0 이하일 경우 게임을 종료합니다.
-//자동 반복 턴제어를 하는 게임 매니저 클래스
-//게임 매니저 클래스는 플레이어와 몬스터의 상태를 관리하고, 전투를 진행합니다.
-// 게임 매니저 클래스는 플레이어와 몬스터의 상태를 출력합니다.
-// 게임 매니저 클래스는 플레이어와 몬스터의 상태를 업데이트합니다.
-// 캐릭터가 레벨업 할 때 마다 경험치를 획득하고, 레벨을 올립니다.
-// 배틀	클래스는 플레이어와 몬스터의 상태를 관리하고, 전투를 진행합니다.
 
-class GameManager {
+class GameManager 
+{
+
+private:
+	int monsterskilled = 0; // 몬스터 처치 횟수
+	std::map<std::string, int> monsterKillCounts; // 몬스터별 처치 횟수
+
 public:
     std::unique_ptr<Monster> generateMonster(int playerLevel) {
         static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
@@ -72,7 +71,10 @@ public:
 
             if (monster->getHealth() <= 0) 
             {
-                std::cout << monster->getName() << " 처치 성공!\n" << endl;
+                std::cout << monster->getName() << " 처치 성공!\n" << std::endl;
+				monsterskilled++;
+				monsterKillCounts[monster->getName()]++;
+
                 player.addExperiencePoint(50);
 				player.addGold(10, 20);
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
@@ -104,4 +106,33 @@ public:
             std::cout << "----------------------------------\n";
         }
     }
+void presentLog(Character& player)
+{
+    std::cout << "========================================" << std::endl;
+    std::cout << "=       - 냥냥 모험의 진행 상황 -      =" << std::endl;
+    std::cout << "========================================" << std::endl;
+    std::cout << "지금까지의 주인님 기록이다냥!" << std::endl;
+    std::cout << "처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
+    std::cout << "현재 소지금: " << player.getGold() << " Gold" << std::endl;
+    std::cout << "========================================" << std::endl << std::endl;
+}
+void gameOverLog(Character& player)
+    {
+        std::cout << "========================================" << std::endl;
+        std::cout << "=                                      =" << std::endl;
+        std::cout << "=        - 냥냥 모험의 결과 -          =" << std::endl;
+        std::cout << "=                                      =" << std::endl;
+        std::cout << "========================================" << std::endl;
+        std::cout << "주인님의 최종 기록이다냥!" << std::endl;
+        std::cout << "총 처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
+        std::cout << "총 획득한 골드: " << player.getGold() << " Gold" << std::endl;
+        std::cout << "========================================" << std::endl << std::endl;
+        std::cout << "정말 대단하다냥! 주인님의 모험은 전설이 될 거다냥!" << std::endl;
+    }
+
+const std::map<std::string, int>& getMonsterKillCounts() const 
+{
+    return monsterKillCounts;
+}
+
 };
