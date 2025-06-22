@@ -2,6 +2,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <memory>
+#include <unordered_map>
+
+#include "FItem.h"
 
 
 class Character
@@ -15,9 +20,11 @@ private:
 	int Gold;
 	int ExperiencePoint;
 	int MaxExperiencePoint;
-	//vector<Item*> _inventory;
+	std::unordered_map<std::string, int> Inventory;
 
 public:
+
+	Potion potion;
 
 	Character()
 		: Name(" ")
@@ -51,7 +58,7 @@ public:
 	{
 		ExperiencePoint += exp;
 		std::cout << Name << "(이)가 경험치 50을 획득했다냥!" << std::endl;
-		std::cout << "현재 경험치 : " << ExperiencePoint << "/"<< MaxExperiencePoint << std::endl;
+		std::cout << "현재 경험치 : " << ExperiencePoint << "/" << MaxExperiencePoint << std::endl;
 	}
 
 	void setGold(int gold)
@@ -91,12 +98,11 @@ public:
 		return MaxExperiencePoint;
 	}
 
-	// 승우님 죄송해요 또 함수를 만들었어요....
 	int getMaxHeart()
 	{
 		return MaxHeart;
 	}
-	// 이것도 추가했어요... 죄송해요 승우님
+
 	int getGold()
 	{
 		return Gold;
@@ -179,29 +185,46 @@ public:
 		std::cout << "공격력이 " << upAttack << "늘었습니다." << std::endl;
 	}
 
-	//void addItem(HealthPotion& healt)
-	//{
-	//	_inventory.push_back(healt);
-	//}
+	// 아이템을 인벤토리에 추가하는 함수
+	void addItem(std::string name)
+	{
+		Inventory[name]++;
 
-	////가지고 있는 아이템을 보는 함수.
-	//void ItemList()
-	//{
-	//	if (_inventory.empty())
-	//	{
-	//		cout << "\n현재 가지고 있는 아이템이 없습니다." << endl;
-	//	}
-	//	else
-	//	{
-	//		cout << "\n인벤토리에 있는 아이템" << endl;
+		std::cout << name << "를 획득했습니다.";
+	}
 
-	//		for (size_t i = 0; i < _inventory.size(); i++)
-	//		{
-	//			cout << _inventory[i] << endl;
-	//		}
-	//		cout << endl;
-	//	}
-	//}
+	// 아이템을 사용하는 함수
+	void usedItem(std::string name)
+	{
+		if (Inventory[name] == 0)
+		{
+			std::cout << name << "아이템이 없습니다." << std::endl;
+		}
+
+		Inventory[name]--;
+
+		std::cout << name << "아이템이 사용되었습니다." << std::endl;
+
+	}
+
+	//가지고 있는 아이템을 보는 함수
+	void ItemList()
+	{
+		if (Inventory.empty())
+		{
+			std::cout << "\n현재 가지고 있는 아이템이 없습니다." << std::endl;
+		}
+		else
+		{
+			cout << "\n인벤토리에 있는 아이템" << endl;
+
+			for (auto i = Inventory.begin(); i != Inventory.end(); ++i)
+			{
+				std::cout << i->first << "  " << i->second << std::endl;
+			}
+			cout << endl;
+		}
+	}
 
 
 };
