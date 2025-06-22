@@ -41,7 +41,7 @@ int main()
 	cout << "=      주인님! 이름을 알려달라냥!      =" << endl;
 	cout << "=                                      =" << endl;
 	cout << "========================================" << endl << endl;
-	cout << " 나의 이름 : ";
+	cout << " 주인님의 이름 : ";
 	getline(cin, CharacterName);
 	player.setName(CharacterName);
 
@@ -53,12 +53,13 @@ int main()
 	{
 		cout << "========================================" << endl;
 		cout << "=                                      =" << endl;
-		cout << "=        무엇을 하시겠습니까?          =" << endl;
+		cout << "=        무엇을 하고 싶냥??            =" << endl;
 		cout << "=                                      =" << endl;
-		cout << "=      1. 플레이어 정보 확인           =" << endl;
-		cout << "=      2. 전투 시작                    =" << endl;
+		cout << "=      1. 주인님 정보 확인             =" << endl;
+		cout << "=      2. 냥냥 모험 시작               =" << endl;
 		cout << "=      3. 아이템 사용                  =" << endl;
-		cout << "=      4. 게임 종료                    =" << endl;
+		cout << "=      4. 현재 로그 사용               =" << endl;
+		cout << "=      5. 게임 종료                    =" << endl;
 		cout << "=                                      =" << endl;
 		cout << "========================================" << endl << endl;
 		cout << "진행 선택 : ";
@@ -91,6 +92,18 @@ int main()
 		}
 		else if (choice == 4)
 		{
+			const auto& killCounts = manager.getMonsterKillCounts();
+			if(!killCounts.empty()) {
+				cout << "주인님, 지금까지 처치한 몬스터 목록이다냥!" << endl;
+				for (const auto& pair : killCounts) {
+					cout << pair.first << " : " << pair.second << "마리" << endl;
+				}
+			} else {
+				cout << "아직 몬스터를 처치하지 않았다냥!" << endl;
+			}
+		}
+		else if (choice == 5)
+		{
 			cout << "게임 종료다냥..>_<" << endl;
 			cout << "주인님, 다음에 또 봐냥!!" << endl;
 			break;
@@ -101,5 +114,7 @@ int main()
 		}
 	}
 	cout << "만랩을 달성했습니다 ! 게임 클리어 !" << endl;
+	manager.gameOverLog(player);
+
 	return 0;
 }
