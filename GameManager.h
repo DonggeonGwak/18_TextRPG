@@ -11,6 +11,7 @@
 #include <string>
 #include "Monster.h"
 #include "Character.h"
+#include "Fitem.h"
  // C++11부터 제공되는 난수 생성 라이브러리
 
 
@@ -77,6 +78,9 @@ public:
 
                 player.addExperiencePoint(50);
 				player.addGold(10, 20);
+				DropItem(monster.get());
+               
+
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
                     {
                     player.LevelUp(player.getLevel());
@@ -90,12 +94,12 @@ public:
                 << "의 공격!" << std::endl
                 << monster->getName() << "의 데미지 :"
                 << monster->getAttack() << std::endl;
-
             player.takeDamage(monster->getAttack());
             std::cout << player.getName() 
                       << " HP: " << player.getHp()
                       << "/" << player.getMaxHeart()
                       << std::endl;
+			  
 
             if (player.getHp() <= 0) 
             {
@@ -117,22 +121,69 @@ void presentLog(Character& player)
     std::cout << "========================================" << std::endl << std::endl;
 }
 void gameOverLog(Character& player)
-    {
-        std::cout << "========================================" << std::endl;
-        std::cout << "=                                      =" << std::endl;
-        std::cout << "=        - 냥냥 모험의 결과 -          =" << std::endl;
-        std::cout << "=                                      =" << std::endl;
-        std::cout << "========================================" << std::endl;
-        std::cout << "주인님의 최종 기록이다냥!" << std::endl;
-        std::cout << "총 처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
-        std::cout << "총 획득한 골드: " << player.getGold() << " Gold" << std::endl;
-        std::cout << "========================================" << std::endl << std::endl;
-        std::cout << "정말 대단하다냥! 주인님의 모험은 전설이 될 거다냥!" << std::endl;
-    }
+{
+    std::cout << "========================================" << std::endl;
+    std::cout << "=                                      =" << std::endl;
+    std::cout << "=        - 냥냥 모험의 결과 -          =" << std::endl;
+    std::cout << "=                                      =" << std::endl;
+    std::cout << "========================================" << std::endl;
+    std::cout << "주인님의 최종 기록이다냥!" << std::endl;
+    std::cout << "총 처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
+    std::cout << "총 획득한 골드: " << player.getGold() << " Gold" << std::endl;
+    std::cout << "========================================" << std::endl << std::endl;
+    std::cout << "정말 대단하다냥! 주인님의 모험은 전설이 될 거다냥!" << std::endl;
+}
 
 const std::map<std::string, int>& getMonsterKillCounts() const 
 {
     return monsterKillCounts;
 }
 
+void displayMonsterKillCounts() const
+{
+    std::cout << "========================================" << std::endl;
+    std::cout << "=                                      =" << std::endl;
+    std::cout << "=        - 몬스터별 처치 기록 -        =" << std::endl;
+    std::cout << "=                                      =" << std::endl;
+    std::cout << "========================================" << std::endl;
+    const auto& killCounts = getMonsterKillCounts();
+    if (!killCounts.empty()) {
+        std::cout << "주인님, 지금까지 처치한 몬스터 목록이다냥!" << std::endl;
+        for (const auto& pair : killCounts) {
+            std::cout << pair.first << " : " << pair.second << "마리" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "아직 몬스터를 처치하지 않았다냥!" << std::endl;
+    }
+}
+FItem* DropItem(Monster* monster)
+{
+    int randval = rand() % 100; // 0부터 99까지의 랜덤 값 생성
+    if (randval > 90)
+    {
+        Weapon* weapon = new Weapon();
+        std::cout << monster->getName() << "이(가)" << weapon->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
+        return weapon;
+
+    }
+    else if (randval > 60)
+    {
+        Potion* potion = new Potion();
+        std::cout << monster->getName() << "이(가)" << potion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
+        return potion;
+    }
+    else if (randval > 30)
+    {
+        AttPotion* attpotion = new AttPotion();
+        std::cout << monster->getName() << "이(가)" << attpotion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
+        return attpotion;
+    }
+    else
+    {
+        std::cout << monster->getName() << "이(가) 아이템을 드롭하지 않았다냥!" << std::endl;
+        return nullptr; // 아이템을 드롭하지 않은 경우
+    }
+}
 };

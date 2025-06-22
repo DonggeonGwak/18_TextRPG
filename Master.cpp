@@ -67,7 +67,8 @@ int main()
 		int choice;
 		cin >> choice;
 		clearScreen();
-		if (cin.fail()) { // 숫자가 아닌 입력이 들어왔을 때 처리
+		if (cin.fail()) 
+		{ // 숫자가 아닌 입력이 들어왔을 때 처리
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			choice = 0;
@@ -80,27 +81,15 @@ int main()
 		}
 		else if (choice == 2)
 		{
-
 			manager.battle(player);
-
 		}
 		else if (choice == 3)
 		{
 			cout << "무슨 아이템 쓸거냥..>_<" << endl;
-			
-						
 		}
 		else if (choice == 4)
 		{
-			const auto& killCounts = manager.getMonsterKillCounts();
-			if(!killCounts.empty()) {
-				cout << "주인님, 지금까지 처치한 몬스터 목록이다냥!" << endl;
-				for (const auto& pair : killCounts) {
-					cout << pair.first << " : " << pair.second << "마리" << endl;
-				}
-			} else {
-				cout << "아직 몬스터를 처치하지 않았다냥!" << endl;
-			}
+			manager.displayMonsterKillCounts(); // 플레이어가 처치한 몬스터 수 출력 함수 호출
 		}
 		else if (choice == 5)
 		{

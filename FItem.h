@@ -59,7 +59,7 @@ private:
 
 	int m_damage;
 public:
-	Weapon():m_damage(500){}
+	Weapon():m_damage(50){}
 	virtual ~Weapon(){}
 	virtual std::string getName() const override
 	{

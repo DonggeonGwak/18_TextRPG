@@ -96,6 +96,11 @@ public:
 	{
 		return MaxHeart;
 	}
+	// 이것도 추가했어요... 죄송해요 승우님
+	int getGold()
+	{
+		return Gold;
+	}
 
 	// 전투에서 골드를 얻는 함수
 	void addGold(int minGold, int maxGold)
