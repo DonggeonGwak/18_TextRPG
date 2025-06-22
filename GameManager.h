@@ -1,4 +1,4 @@
-
+ï»¿
 #pragma once
 #include <random>
 #include <iostream>
@@ -12,7 +12,7 @@
 #include "Monster.h"
 #include "Character.h"
 #include "Fitem.h"
- // C++11ºÎÅÍ Á¦°øµÇ´Â ³­¼ö »ı¼º ¶óÀÌºê·¯¸®
+ // C++11ë¶€í„° ì œê³µë˜ëŠ” ë‚œìˆ˜ ìƒì„± ë¼ì´ë¸ŒëŸ¬ë¦¬
 
 
 
@@ -20,14 +20,23 @@ class GameManager
 {
 
 private:
-	int monsterskilled = 0; // ¸ó½ºÅÍ Ã³Ä¡ È½¼ö
-	std::map<std::string, int> monsterKillCounts; // ¸ó½ºÅÍº° Ã³Ä¡ È½¼ö
+	int monsterskilled = 0; // ëª¬ìŠ¤í„° ì²˜ì¹˜ íšŸìˆ˜
+	std::map<std::string, int> monsterKillCounts; // ëª¬ìŠ¤í„°ë³„ ì²˜ì¹˜ íšŸìˆ˜
+    bool dragonDefeated = false;
 
 public:
+    bool isDragonDefeated() const 
+    {
+        return dragonDefeated;
+    }
     std::unique_ptr<Monster> generateMonster(int playerLevel) {
+        if (playerLevel >= 10) {
+            std::cout << "\nâš ï¸ ì „ì„¤ì˜ ë“œë˜ê³¤ì´ ì¶œí˜„í–ˆë‹¤ëƒ¥! âš ï¸\n" << std::endl;
+            return std::make_unique<Dragon>();
+        }
+
         static std::mt19937 rng(static_cast<unsigned int>(std::time(nullptr)));
         std::uniform_int_distribution<int> dist(0, 3);
-
         int choice = dist(rng);
 
         switch (choice) {
@@ -47,18 +56,18 @@ public:
     void battle(Character& player) {
         std::unique_ptr<Monster> monster = generateMonster(player.getLevel());
 
-        std::cout << "ÀüÅõ ½ÃÀÛÀÌ´Ù³É ! " << monster->getName() 
-                  << " ¸ó½ºÅÍ µîÀå ! " << std::endl << std::endl;
-        std::cout << "=¸ó½ºÅÍ ½ºÅ×ÀÌÅÍ½º=" << std::endl;
+        std::cout << "ì „íˆ¬ ì‹œì‘ì´ë‹¤ëƒ¥ ! " << monster->getName() 
+                  << " ëª¬ìŠ¤í„° ë“±ì¥ ! " << std::endl << std::endl;
+        std::cout << "=ëª¬ìŠ¤í„° ìŠ¤í…Œì´í„°ìŠ¤=" << std::endl;
 
         monster->displayinfo();
         std::cout << std::endl;
          
         while (true) {
-            // ÇÃ·¹ÀÌ¾î ÅÏ
-            std::cout << "[PlayerÅÏ] " << player.getName()
-                      << "ÀÇ °ø°İ!" << std::endl
-                      << player.getName() << "ÀÇ µ¥¹ÌÁö : "
+            // í”Œë ˆì´ì–´ í„´
+            std::cout << "[Playerí„´] " << player.getName()
+                      << "ì˜ ê³µê²©!" << std::endl
+                      << player.getName() << "ì˜ ë°ë¯¸ì§€ : "
                       << player.getAttack();
 
             monster->takeDamage(player.getAttack());
@@ -72,9 +81,17 @@ public:
 
             if (monster->getHealth() <= 0) 
             {
-                std::cout << monster->getName() << " Ã³Ä¡ ¼º°ø!\n" << std::endl;
+                std::cout << monster->getName() << " ì²˜ì¹˜ ì„±ê³µ!\n" << std::endl;
 				monsterskilled++;
 				monsterKillCounts[monster->getName()]++;
+
+                if (monster->getName() == "ë“œë˜ê³¤") 
+                {
+                    dragonDefeated = true;
+                    std::cout << "ì£¼ì¸ë‹˜ì´ ì „ì„¤ì˜ ë“œë˜ê³¤ì„ ë¬´ì°”ë €ë‹¤ëƒ¥!!!\n" << std::endl;
+                    gameOverLog(player);
+                    exit(0);
+                }
 
                 player.addExperiencePoint(50);
 				player.addGold(10, 20);
@@ -88,11 +105,11 @@ public:
                 break;
             }
 
-            // ¸ó½ºÅÍ ÅÏ
-            std::cout << "[Monster ÅÏ] "
+            // ëª¬ìŠ¤í„° í„´
+            std::cout << "[Monster í„´] "
                 << monster->getName()
-                << "ÀÇ °ø°İ!" << std::endl
-                << monster->getName() << "ÀÇ µ¥¹ÌÁö :"
+                << "ì˜ ê³µê²©!" << std::endl
+                << monster->getName() << "ì˜ ë°ë¯¸ì§€ :"
                 << monster->getAttack() << std::endl;
             player.takeDamage(monster->getAttack());
             std::cout << player.getName() 
@@ -103,7 +120,7 @@ public:
 
             if (player.getHp() <= 0) 
             {
-                std::cout << player.getName() << "ÀÌ(°¡) ¾²·¯Á³½À´Ï´Ù...\n";
+                std::cout << player.getName() << "ì´(ê°€) ì“°ëŸ¬ì¡ŒìŠµë‹ˆë‹¤...\n";
                 break;
             }
 
@@ -113,25 +130,25 @@ public:
 void presentLog(Character& player)
 {
     std::cout << "========================================" << std::endl;
-    std::cout << "=       - ³É³É ¸ğÇèÀÇ ÁøÇà »óÈ² -      =" << std::endl;
+    std::cout << "=       - ëƒ¥ëƒ¥ ëª¨í—˜ì˜ ì§„í–‰ ìƒí™© -      =" << std::endl;
     std::cout << "========================================" << std::endl;
-    std::cout << "Áö±İ±îÁöÀÇ ÁÖÀÎ´Ô ±â·ÏÀÌ´Ù³É!" << std::endl;
-    std::cout << "Ã³Ä¡ÇÑ ¸ó½ºÅÍ: " << monsterskilled << " ¸¶¸®" << std::endl;
-    std::cout << "ÇöÀç ¼ÒÁö±İ: " << player.getGold() << " Gold" << std::endl;
+    std::cout << "ì§€ê¸ˆê¹Œì§€ì˜ ì£¼ì¸ë‹˜ ê¸°ë¡ì´ë‹¤ëƒ¥!" << std::endl;
+    std::cout << "ì²˜ì¹˜í•œ ëª¬ìŠ¤í„°: " << monsterskilled << " ë§ˆë¦¬" << std::endl;
+    std::cout << "í˜„ì¬ ì†Œì§€ê¸ˆ: " << player.getGold() << " Gold" << std::endl;
     std::cout << "========================================" << std::endl << std::endl;
 }
 void gameOverLog(Character& player)
 {
     std::cout << "========================================" << std::endl;
     std::cout << "=                                      =" << std::endl;
-    std::cout << "=        - ³É³É ¸ğÇèÀÇ °á°ú -          =" << std::endl;
+    std::cout << "=        - ëƒ¥ëƒ¥ ëª¨í—˜ì˜ ê²°ê³¼ -          =" << std::endl;
     std::cout << "=                                      =" << std::endl;
     std::cout << "========================================" << std::endl;
-    std::cout << "ÁÖÀÎ´ÔÀÇ ÃÖÁ¾ ±â·ÏÀÌ´Ù³É!" << std::endl;
-    std::cout << "ÃÑ Ã³Ä¡ÇÑ ¸ó½ºÅÍ: " << monsterskilled << " ¸¶¸®" << std::endl;
-    std::cout << "ÃÑ È¹µæÇÑ °ñµå: " << player.getGold() << " Gold" << std::endl;
+    std::cout << "ì£¼ì¸ë‹˜ì˜ ìµœì¢… ê¸°ë¡ì´ë‹¤ëƒ¥!" << std::endl;
+    std::cout << "ì´ ì²˜ì¹˜í•œ ëª¬ìŠ¤í„°: " << monsterskilled << " ë§ˆë¦¬" << std::endl;
+    std::cout << "ì´ íšë“í•œ ê³¨ë“œ: " << player.getGold() << " Gold" << std::endl;
     std::cout << "========================================" << std::endl << std::endl;
-    std::cout << "Á¤¸» ´ë´ÜÇÏ´Ù³É! ÁÖÀÎ´ÔÀÇ ¸ğÇèÀº Àü¼³ÀÌ µÉ °Å´Ù³É!" << std::endl;
+    std::cout << "ì •ë§ ëŒ€ë‹¨í•˜ë‹¤ëƒ¥! ì£¼ì¸ë‹˜ì˜ ëª¨í—˜ì€ ì „ì„¤ì´ ë  ê±°ë‹¤ëƒ¥!" << std::endl;
 }
 
 const std::map<std::string, int>& getMonsterKillCounts() const 
@@ -143,47 +160,48 @@ void displayMonsterKillCounts() const
 {
     std::cout << "========================================" << std::endl;
     std::cout << "=                                      =" << std::endl;
-    std::cout << "=        - ¸ó½ºÅÍº° Ã³Ä¡ ±â·Ï -        =" << std::endl;
+    std::cout << "=        - ëª¬ìŠ¤í„°ë³„ ì²˜ì¹˜ ê¸°ë¡ -        =" << std::endl;
     std::cout << "=                                      =" << std::endl;
     std::cout << "========================================" << std::endl;
     const auto& killCounts = getMonsterKillCounts();
     if (!killCounts.empty()) {
-        std::cout << "ÁÖÀÎ´Ô, Áö±İ±îÁö Ã³Ä¡ÇÑ ¸ó½ºÅÍ ¸ñ·ÏÀÌ´Ù³É!" << std::endl;
+        std::cout << "ì£¼ì¸ë‹˜, ì§€ê¸ˆê¹Œì§€ ì²˜ì¹˜í•œ ëª¬ìŠ¤í„° ëª©ë¡ì´ë‹¤ëƒ¥!" << std::endl;
         for (const auto& pair : killCounts) {
-            std::cout << pair.first << " : " << pair.second << "¸¶¸®" << std::endl;
+            std::cout << pair.first << " : " << pair.second << "ë§ˆë¦¬" << std::endl;
         }
     }
     else
     {
-        std::cout << "¾ÆÁ÷ ¸ó½ºÅÍ¸¦ Ã³Ä¡ÇÏÁö ¾Ê¾Ò´Ù³É!" << std::endl;
+        std::cout << "ì•„ì§ ëª¬ìŠ¤í„°ë¥¼ ì²˜ì¹˜í•˜ì§€ ì•Šì•˜ë‹¤ëƒ¥!" << std::endl;
     }
 }
+
 FItem* DropItem(Monster* monster)
 {
-    int randval = rand() % 100; // 0ºÎÅÍ 99±îÁöÀÇ ·£´ı °ª »ı¼º
+    int randval = rand() % 100; // 0ë¶€í„° 99ê¹Œì§€ì˜ ëœë¤ ê°’ ìƒì„±
     if (randval > 90)
     {
         Weapon* weapon = new Weapon();
-        std::cout << monster->getName() << "ÀÌ(°¡)" << weapon->getName() << "¾ÆÀÌÅÛÀ»(¸¦) µå·ÓÇß´Ù³É!" << std::endl;
+        std::cout << monster->getName() << "ì´(ê°€)" << weapon->getName() << "ì•„ì´í…œì„(ë¥¼) ë“œë¡­í–ˆë‹¤ëƒ¥!" << std::endl;
         return weapon;
 
     }
     else if (randval > 60)
     {
         Potion* potion = new Potion();
-        std::cout << monster->getName() << "ÀÌ(°¡)" << potion->getName() << "¾ÆÀÌÅÛÀ»(¸¦) µå·ÓÇß´Ù³É!" << std::endl;
+        std::cout << monster->getName() << "ì´(ê°€)" << potion->getName() << "ì•„ì´í…œì„(ë¥¼) ë“œë¡­í–ˆë‹¤ëƒ¥!" << std::endl;
         return potion;
     }
     else if (randval > 30)
     {
         AttPotion* attpotion = new AttPotion();
-        std::cout << monster->getName() << "ÀÌ(°¡)" << attpotion->getName() << "¾ÆÀÌÅÛÀ»(¸¦) µå·ÓÇß´Ù³É!" << std::endl;
+        std::cout << monster->getName() << "ì´(ê°€)" << attpotion->getName() << "ì•„ì´í…œì„(ë¥¼) ë“œë¡­í–ˆë‹¤ëƒ¥!" << std::endl;
         return attpotion;
     }
     else
     {
-        std::cout << monster->getName() << "ÀÌ(°¡) ¾ÆÀÌÅÛÀ» µå·ÓÇÏÁö ¾Ê¾Ò´Ù³É!" << std::endl;
-        return nullptr; // ¾ÆÀÌÅÛÀ» µå·ÓÇÏÁö ¾ÊÀº °æ¿ì
+        std::cout << monster->getName() << "ì´(ê°€) ì•„ì´í…œì„ ë“œë¡­í•˜ì§€ ì•Šì•˜ë‹¤ëƒ¥!" << std::endl;
+        return nullptr; // ì•„ì´í…œì„ ë“œë¡­í•˜ì§€ ì•Šì€ ê²½ìš°
     }
 }
 };
