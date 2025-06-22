@@ -16,8 +16,10 @@ protected:
 
 class Potion:public FItem
 {
+private:
+	int m_heal;
 public:
-	Potion(int heal):m_heal(heal){}
+	Potion():m_heal(50){}
 	virtual ~Potion(){}
 	virtual int get() const override
 	{
@@ -29,14 +31,15 @@ public:
 	}
 	
 	
-private:
-	int m_heal;
+
 };
 
 class AttPotion :public FItem
 {
+private:
+	int m_attIncrease;
 public:
-	AttPotion(int att):m_attIncrease(att){}
+	AttPotion():m_attIncrease(10){}
 	~AttPotion(){}
 	virtual std::string getName() const override
 	{
@@ -46,15 +49,17 @@ public:
 	{
 		return  m_attIncrease;
 	}
-private:
-	int m_attIncrease;
+
 
 };
 
 class Weapon:public FItem
 {
+private:
+
+	int m_damage;
 public:
-	Weapon(int damage):m_damage(damage){}
+	Weapon():m_damage(500){}
 	virtual ~Weapon(){}
 	virtual std::string getName() const override
 	{
@@ -65,8 +70,6 @@ public:
 		return  m_damage;
 	}
 
-private:
-	
-	int m_damage;
+
 
 };
