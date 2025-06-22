@@ -189,9 +189,9 @@ public:
 	// 아이템을 인벤토리에 추가하는 함수
 	void addItem(std::string name)
 	{
-		Inventory[name]++;
+		Inventory[name] += 1;
 
-		std::cout << name << "를 획득했습니다.";
+		std::cout << name << "아이템을 획득했습니다." << std::endl;
 	}
 
 	// 아이템을 사용하는 함수
@@ -215,23 +215,27 @@ public:
 		}
 	}
 
-	////가지고 있는 아이템을 보는 함수
-	//void ItemList()
-	//{
-	//	if (Inventory.find(0) == 0)
-	//	{
-	//		std::cout << "현제 가진 아이템이 없습니다." << std::endl;
-	//	}
-	//	else
-	//	{
-	//		std::cout << "\n인벤토리에 있는 아이템" << std::endl;
-	//		for (auto i = Inventory.begin(); i != Inventory.end(); ++i)
-	//		{
-	//			std::cout << i->first << "  " << i->second << std::endl;
-	//		}
-	//		std::cout << std::endl;
-	//	}
-	//}
+	//가지고 있는 아이템을 보는 함수
+	void ItemList()
+	{
+		if (Inventory.end() == Inventory.find(" "))
+		{
+			std::cout << "\n인벤토리에 있는 아이템" << std::endl;
+
+			for (const auto& pair : Inventory)
+			{
+				if (pair.second != 0)
+				{
+					std::cout << "아이템: " << pair.first << ", 수량: " << pair.second << std::endl;
+					std::cout << std::endl;
+				}
+			}
+		}
+		else
+		{
+			std::cout << "현재 가진 아이템이 없습니다" << std::endl;
+		}
+	}
 
 
 };
