@@ -22,7 +22,6 @@ private:
 	int MaxExperiencePoint;
 	std::unordered_map<std::string, int> Inventory;
 
-
 public:
 
 	Potion potion;
@@ -198,7 +197,9 @@ public:
 	// 아이템을 사용하는 함수
 	void usedItem(std::string name)
 	{
-		if (Inventory.empty())
+		auto itr = Inventory.find(name);
+
+		if (itr == Inventory.end())
 		{
 			std::cout << "인벤토리가 비어있습니다" << std::endl;
 		}
@@ -206,30 +207,31 @@ public:
 		{
 			std::cout << name << "아이템이 없습니다." << std::endl;
 		}
-
-		Inventory[name]--;
-
-		std::cout << name << "아이템이 사용되었습니다." << std::endl;
-
-	}
-
-	//가지고 있는 아이템을 보는 함수
-	void ItemList()
-	{
-		if (Inventory.empty())
-		{
-			std::cout << "\n현재 가지고 있는 아이템이 없습니다." << std::endl;
-		}
 		else
 		{
-			std::cout << "\n인벤토리에 있는 아이템" << std::endl;
-			for (auto i = Inventory.begin(); i != Inventory.end(); ++i)
-			{
-				std::cout << i->first << "  " << i->second << std::endl;
-			}
-			std::cout << std::endl;
+			Inventory[name]--;
+
+			std::cout << name << "아이템이 사용되었습니다." << std::endl;
 		}
 	}
+
+	////가지고 있는 아이템을 보는 함수
+	//void ItemList()
+	//{
+	//	if (Inventory.find(0) == 0)
+	//	{
+	//		std::cout << "현제 가진 아이템이 없습니다." << std::endl;
+	//	}
+	//	else
+	//	{
+	//		std::cout << "\n인벤토리에 있는 아이템" << std::endl;
+	//		for (auto i = Inventory.begin(); i != Inventory.end(); ++i)
+	//		{
+	//			std::cout << i->first << "  " << i->second << std::endl;
+	//		}
+	//		std::cout << std::endl;
+	//	}
+	//}
 
 
 };
