@@ -61,10 +61,10 @@ int main()
 		cout << "=                                      =" << endl;
 		cout << "=      1. 주인님 정보 확인             =" << endl;
 		cout << "=      2. 냥냥 모험 시작               =" << endl;
-		cout << "=      3. 아이템 사용                  =" << endl;
-		cout << "=      4. 상점                         =" << endl;
-		cout << "=      5. 현재 로그 사용               =" << endl;
-		cout << "=      6. 게임 종료                    =" << endl;
+		cout << "=      3. 상점                         =" << endl;
+		cout << "=      4. 현재 로그 사용               =" << endl;
+		cout << "=      5. 게임 종료                    =" << endl;
+		cout << "=                                      =" << endl;
 		cout << "========================================" << endl << endl;
 		cout << "진행 선택 : ";
 
@@ -83,16 +83,14 @@ int main()
 			player.displayStatus(); // 플레이어 스텟 출력 함수 호출
 			player.ItemList(); // 플레이어 인벤토리 출력 함수 호출
 			cout << endl;
+
 		}
 		else if (choice == 2)
 		{
 			manager.battle(player);
 		}
+	
 		else if (choice == 3)
-		{
-			cout << "무슨 아이템 쓸거냥..>_<" << endl;
-		}
-		else if (choice == 4)
 		{
 			shop.displayItems();
 
@@ -121,11 +119,11 @@ int main()
 				cout << "잘못된 입력" << endl;
 			}
 		}
-		else if (choice == 5)
+		else if (choice == 4)
 		{
 			manager.displayMonsterKillCounts(); // 플레이어가 처치한 몬스터 수 출력 함수 호출
 		}
-		else if (choice == 6)
+		else if (choice == 5)
 		{
 			cout << "게임 종료다냥..>_<" << endl;
 			cout << "주인님, 다음에 또 봐냥!!" << endl;

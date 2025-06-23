@@ -82,7 +82,8 @@ public:
                     player.heal(potion.get());
                     player.usedItem(potion.getName());
                     std::cout << "\n========================================" << std::endl;
-                    std::cout << "!! 주인님의 HP가 위험하다냥! " << potion.getName() << "을 사용한다냥! !!" << std::endl;
+                    std::cout << "주인님 ! HP가 위험하다냥! " << potion.getName() << "을 사용한다냥 !" << std::endl;
+                    std::cout << "주인님의 체력이 " << potion.get() << " 만큼 회복되었다냥 !" << std::endl;
                     std::cout << "\n========================================" << std::endl;
                 }
                 // 2. att포션이 있는지 확인하고 사용한다냥
@@ -92,7 +93,8 @@ public:
                     player.increaseAttack(attPotion.get());
                     player.usedItem(attPotion.getName());
                     std::cout << "\n========================================" << std::endl;
-                    std::cout << "!! 주인님의 HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥! !!" << std::endl;
+                    std::cout << "주인님 ! HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥 !" << std::endl;
+                    std::cout << "주인님의 공격력이 " << attPotion.get() << " 만큼 증가되었다냥 !" << std::endl;
                     std::cout << "\n========================================" << std::endl;
                 }
 
@@ -151,6 +153,10 @@ public:
                 << monster->getName() << "의 데미지 :"
                 << monster->getAttack() << std::endl;
             player.takeDamage(monster->getAttack());
+            std::cout << player.getName()
+                << " HP: " << player.getHp()
+                << "/" << player.getMaxHeart()
+                << std::endl << std::endl;
 
 
 
@@ -188,11 +194,6 @@ public:
                 
                 
             }
-
-            std::cout << player.getName()
-                << " HP: " << player.getHp()
-                << "/" << player.getMaxHeart()
-                << std::endl;
 
             if (player.getHp() <= 0)
             {
@@ -278,18 +279,17 @@ Item* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함�
    if (dropChance <= 30)
     {
         Potion* potion = new Potion();
-        std::cout << monster->getName() << "이(가)" << potion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
+        std::cout << potion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
         return potion;
     }
     else if (dropChance <= 60)
     {
         AttPotion* attpotion = new AttPotion();
-        std::cout << monster->getName() << "이(가)" << attpotion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
+        std::cout << attpotion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
         return attpotion;
     }
     else
     {
-        std::cout << monster->getName() << "이(가) 아이템을 드롭하지 않았다냥!" << std::endl;
         return nullptr; // 아이템을 드롭하지 않은 경우
     }
 }

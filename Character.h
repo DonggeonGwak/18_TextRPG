@@ -58,8 +58,8 @@ public:
 	void addExperiencePoint(const int& exp)
 	{
 		ExperiencePoint += exp;
-		std::cout << Name << "(이)가 경험치 50을 획득했다냥!" << std::endl;
-		std::cout << "현재 경험치 : " << ExperiencePoint << "/" << MaxExperiencePoint << std::endl;
+		std::cout << "경험치 50을 획득했다냥! " << 
+		"현재 경험치 : " << ExperiencePoint << "/" << MaxExperiencePoint << std::endl;
 	}
 
 	void setGold(const int& gold)
@@ -123,7 +123,7 @@ public:
 
 		Gold += actGold;
 
-		std::cout << actGold << " Gold를 얻었습니다. 총 소지금: " << Gold << " Gold입니다." << std::endl;
+		std::cout << actGold << " 골드를 획득했다냥 ! 총 " << Gold << " 골드를 모았다냥 !! " << std::endl;
 	}
 
 	// 부상을 입는 함수
@@ -179,7 +179,6 @@ public:
 		else
 		{
 			Hp += potion;
-			std::cout << "체력이 " << potion << "회복되었습니다." << std::endl;
 		}
 	}
 
@@ -188,7 +187,6 @@ public:
 	{
 		Attack += upAttack;
 
-		std::cout << "공격력이 " << upAttack << "늘었습니다." << std::endl;
 	}
 
 	// 아이템을 인벤토리에 추가하는 함수
@@ -213,8 +211,6 @@ public:
 		else
 		{
 			Inventory[name]--;
-
-			std::cout << name << "아이템이 사용되었습니다." << std::endl;
 		}
 	}
 
