@@ -73,7 +73,6 @@ public:
             monster->takeDamage(player.getAttack());
             std::cout << std::endl;
 
-
             std::cout << monster->getName() 
                       << " HP: " << monster->getHealth()
                       << "/" << monster->getMaxHealth()
@@ -124,15 +123,28 @@ public:
                       << " HP: " << player.getHp()
                       << "/" << player.getMaxHeart()
                       << std::endl;
-			  
+           
+            
 
             if (player.getHp() <= 0) 
             {
                 std::cout << player.getName() << "이(가) 쓰러졌습니다...\n";
                 break;
             }
+          
+            
+            if (player.getHp() < player.getMaxHeart() / 2)
+            {
 
-            std::cout << "----------------------------------\n";
+                Potion* potion =0;
+                player.usedItem(potion->getName());
+                player.heal(potion->get()); // 플레이어가 아이템을 사용하여 회복
+            }
+          /*  else if (player.getInventory().end() == player.getInventory().find(" "))
+            {
+                std::cout << "주인님, 인벤토리에 아이템이 없다냥! " << std::endl;
+            }
+            std::cout << "----------------------------------\n";*/
         }
     }
 void presentLog(Character& player)
@@ -226,4 +238,6 @@ FItem* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함�
         return nullptr; // 아이템을 드롭하지 않은 경우
     }
 }
+
+
 };
