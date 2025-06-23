@@ -65,8 +65,8 @@ public:
          
         while (true) {
             // 플레이어 턴
-            std::cout << "[Player턴] " << player.getName()
-                      << "의 공격!" << std::endl
+            std::cout << "[주인님 턴] " << player.getName()
+                      << "의 냥냥펀치!!" << std::endl
                       << player.getName() << "의 데미지 : "
                       << player.getAttack();
 
@@ -82,8 +82,15 @@ public:
             if (monster->getHealth() <= 0) 
             {
                 std::cout << monster->getName() << " 처치 성공!\n" << std::endl;
-				monsterskilled++;
-				monsterKillCounts[monster->getName()]++;
+				monsterskilled++; // 몬스터 처치 횟수 증가
+                monsterKillCounts[monster->getName()]++; // 몬스터 이름을 키로 하여 처치 횟수 증가
+
+				FItem* droppedItem = DropItem(monster.get()); // 몬스터가 아이템을 드롭하는 함수 호출
+                if (droppedItem != nullptr)
+                {
+                    player.addItem(droppedItem->getName());
+                    delete droppedItem; // 아이템 사용 후 메모리 해제
+                }
 
                 if (monster->getName() == "드래곤") 
                 {
@@ -95,7 +102,8 @@ public:
 
                 player.addExperiencePoint(50);
 				player.addGold(10, 20);
-				DropItem(monster.get());
+				
+                
                
 
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
@@ -106,7 +114,7 @@ public:
             }
 
             // 몬스터 턴
-            std::cout << "[Monster 턴] "
+            std::cout << "[몬스터 턴] "
                 << monster->getName()
                 << "의 공격!" << std::endl
                 << monster->getName() << "의 데미지 :"
@@ -139,14 +147,28 @@ void presentLog(Character& player)
 }
 void gameOverLog(Character& player)
 {
-    std::cout << "========================================" << std::endl;
-    std::cout << "=                                      =" << std::endl;
-    std::cout << "=        - 냥냥 모험의 결과 -          =" << std::endl;
-    std::cout << "=                                      =" << std::endl;
-    std::cout << "========================================" << std::endl;
+    
+    std::cout << "            ====        ====          " << std::endl;
+    std::cout << "           ======      ======          " << std::endl;
+    std::cout << "          ========    ========          " << std::endl;
+    std::cout << "      ============================      " << std::endl;
+    std::cout << "   ====                          ====  " << std::endl;
+    std::cout << " ==        - 냥냥 모험의 결과 -      ==" << std::endl;
+    std::cout << "   ====                          ====  " << std::endl;
+    std::cout << "      =====                 =====      " << std::endl;
+    std::cout << "         =====================         " << std::endl;
+    
     std::cout << "주인님의 최종 기록이다냥!" << std::endl;
-    std::cout << "총 처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
     std::cout << "총 획득한 골드: " << player.getGold() << " Gold" << std::endl;
+    std::cout << "총 처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
+        
+    const auto& killCounts = getMonsterKillCounts();
+    if (!killCounts.empty()) {
+        std::cout << "주인님, 처치한 몬스터 목록이다냥!" << std::endl;
+        for (const auto& pair : killCounts) {
+            std::cout << pair.first << " : " << pair.second << "마리" << std::endl;
+        }
+    }
     std::cout << "========================================" << std::endl << std::endl;
     std::cout << "정말 대단하다냥! 주인님의 모험은 전설이 될 거다냥!" << std::endl;
 }
@@ -176,7 +198,7 @@ void displayMonsterKillCounts() const
     }
 }
 
-FItem* DropItem(Monster* monster)
+FItem* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함수
 {
     int randval = rand() % 100; // 0부터 99까지의 랜덤 값 생성
     if (randval > 90)
