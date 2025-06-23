@@ -76,25 +76,35 @@ public:
         }
     }
 
-    void sellItem(std::string itemName, Character& player)
+    void sellItem(int index2, Character& player)
     {
+        int actualIndex2 = index2 - 1;
+
+        if (actualIndex2 < 0 || actualIndex2 >= availableItems.size())
+        {
+            std::cout << "잘못된 아이템 번호입니다. 다시 확인해주세요." << std::endl;
+            return;
+        }
+
+        std::shared_ptr<FItem> itemToSell = availableItems[actualIndex2];
+
         int originalPrice = 0;
-        if (itemName == "HP포션")
+        if (std::dynamic_pointer_cast<Potion>(itemToSell))
         {
             originalPrice = 10;
         }
-        else if (itemName == "att포션")
+        else if (std::dynamic_pointer_cast<AttPotion>(itemToSell))
         {
             originalPrice = 15;
         }
 
         int sellPrice = static_cast<int>(originalPrice * 0.6);
 
-        player.usedItem(itemName);
+        player.usedItem(itemToSell->getName());
 
         player.setGold(player.getGold() + sellPrice);
 
-        std::cout << itemName << "을(를) " << sellPrice << " Gold에 판매했습니다!" << std::endl;
+        std::cout << itemToSell->getName() << "을(를) " << sellPrice << " Gold에 판매했습니다!" << std::endl;
         std::cout << "현재 골드: " << player.getGold() << std::endl;
     }
 };

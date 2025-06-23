@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "Monster.h"
 #include "Character.h"
+#include "Shop.h"
 #ifdef _WIN32
 #define CLEAR_COMMAND "cls"
 #else
@@ -24,11 +25,9 @@ void clearScreen()
 
 int main()
 {
-	// rand() 함수가 매번 다른 값을 생성하도록 시드 설정
-	srand(static_cast<unsigned int>(time(nullptr)));
-
 	GameManager manager; // GameManager 객체 생성
 	Character player; // Player 객체 생성
+	Shop shop;
 	Goblin goblin(); // Goblin 객체 생성
 	Orc orc(); // Orc 객체 생성
 	Troll troll(); // Troll 객체 생성
@@ -61,9 +60,9 @@ int main()
 		cout << "=      1. 주인님 정보 확인             =" << endl;
 		cout << "=      2. 냥냥 모험 시작               =" << endl;
 		cout << "=      3. 아이템 사용                  =" << endl;
-		cout << "=      4. 현재 로그 사용               =" << endl;
-		cout << "=      5. 게임 종료                    =" << endl;
-		cout << "=                                      =" << endl;
+		cout << "=      4. 상점                         =" << endl;
+		cout << "=      5. 현재 로그 사용               =" << endl;
+		cout << "=      6. 게임 종료                    =" << endl;
 		cout << "========================================" << endl << endl;
 		cout << "진행 선택 : ";
 
@@ -93,9 +92,38 @@ int main()
 		}
 		else if (choice == 4)
 		{
-			manager.displayMonsterKillCounts(); // 플레이어가 처치한 몬스터 수 출력 함수 호출
+			shop.displayItems();
+
+			int shopchoice;
+			cout << "1. 아이템 구매" << endl;
+			cout << "2. 아이템 판매" << endl;
+			cout << "입력 : ";
+			cin >> shopchoice;
+
+			if (shopchoice == 1)
+			{
+				int index1;
+				cout << "구매할 아이템을 선택하세요 : ";
+				cin >> index1;
+				shop.buyItem(index1, player);
+			}
+			else if (shopchoice == 2)
+			{
+				int index2;
+				cout << "판매할 아이템 : ";
+				cin >> index2;
+				shop.sellItem(index2, player);
+			}
+			else
+			{
+				cout << "잘못된 입력" << endl;
+			}
 		}
 		else if (choice == 5)
+		{
+			manager.displayMonsterKillCounts(); // 플레이어가 처치한 몬스터 수 출력 함수 호출
+		}
+		else if (choice == 6)
 		{
 			cout << "게임 종료다냥..>_<" << endl;
 			cout << "주인님, 다음에 또 봐냥!!" << endl;
@@ -106,7 +134,7 @@ int main()
 			cout << "잘못된 입력값이다냥. 1,2,3,4 중에 입력하라냥." << endl;
 		}
 	}
-	
+	cout << "만랩을 달성했습니다 ! 게임 클리어 !" << endl;
 	manager.gameOverLog(player);
 
 	return 0;
