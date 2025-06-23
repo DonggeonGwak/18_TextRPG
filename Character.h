@@ -45,72 +45,72 @@ public:
 		Name = name;
 	}
 
-	void setHp(int hp)
+	void setHp(const int& hp)
 	{
 		Hp = hp;
 	}
 
-	void setAttack(int attack)
+	void setAttack(const int& attack)
 	{
 		Attack = attack;
 	}
 
-	void addExperiencePoint(int exp)
+	void addExperiencePoint(const int& exp)
 	{
 		ExperiencePoint += exp;
 		std::cout << Name << "(이)가 경험치 50을 획득했다냥!" << std::endl;
 		std::cout << "현재 경험치 : " << ExperiencePoint << "/" << MaxExperiencePoint << std::endl;
 	}
 
-	void setGold(int gold)
+	void setGold(const int& gold)
 	{
 		Gold = gold;
 	}
 
 
 	// getter 함수들
-	std::string getName()
+	std::string getName() const
 	{
 		return Name;
 	}
 
-	int getHp()
+	int getHp() const
 	{
 		return Hp;
 	}
 
-	int getAttack()
+	int getAttack() const
 	{
 		return Attack;
 	}
 
-	int getLevel()
+	int getLevel() const
 	{
 		return Level;
 	}
 
-	int getExperiencePoint()
+	int getExperiencePoint() const
 	{
 		return ExperiencePoint;
 	}
 
-	int getMaxExperiencePoint()
+	int getMaxExperiencePoint() const
 	{
 		return MaxExperiencePoint;
 	}
 
-	int getMaxHeart()
+	int getMaxHeart() const
 	{
 		return MaxHeart;
 	}
 
-	int getGold()
+	int getGold() const
 	{
 		return Gold;
 	}
 
 	// 전투에서 골드를 얻는 함수
-	void addGold(int minGold, int maxGold)
+	void addGold(const int& minGold, const int& maxGold)
 	{
 		int actGold;
 
@@ -122,7 +122,7 @@ public:
 	}
 
 	// 부상을 입는 함수
-	void takeDamage(int damage)
+	void takeDamage(const int& damage)
 	{
 		Hp -= damage;
 
@@ -144,7 +144,7 @@ public:
 	}
 
 	//레벨 업 하는 함수
-	void LevelUp(int level)
+	void LevelUp(const int& level)
 	{
 		Level = level;
 
@@ -164,7 +164,7 @@ public:
 	}
 
 	//체력을 추가하는 함수
-	void heal(int potion)
+	void heal(const int& potion)
 	{
 		if ((Hp + potion) > MaxHeart)
 		{
@@ -179,7 +179,7 @@ public:
 	}
 
 	//공격력을 증가하는 함수
-	void increaseAttack(int upAttack)
+	void increaseAttack(const int& upAttack)
 	{
 		Attack += upAttack;
 
@@ -187,15 +187,13 @@ public:
 	}
 
 	// 아이템을 인벤토리에 추가하는 함수
-	void addItem(std::string name)
+	void addItem(const std::string& name)
 	{
 		Inventory[name] += 1;
-
-		std::cout << name << "아이템을 획득했습니다." << std::endl;
 	}
 
 	// 아이템을 사용하는 함수
-	void usedItem(std::string name)
+	void usedItem(const std::string& name)
 	{
 		auto itr = Inventory.find(name);
 
@@ -220,21 +218,26 @@ public:
 	{
 		if (Inventory.end() == Inventory.find(" "))
 		{
+			int coutItem = 0;
+
 			std::cout << "\n인벤토리에 있는 아이템" << std::endl;
+			std::cout << std::endl;
 
 			for (const auto& pair : Inventory)
 			{
 				if (pair.second != 0)
 				{
 					std::cout << "아이템: " << pair.first << ", 수량: " << pair.second << std::endl;
-					std::cout << std::endl;
+					coutItem++;
 				}
 			}
+
+			if (coutItem == 0)
+			{
+				std::cout << "현재 가진 아이템이 없습니다" << std::endl;
+			}
 		}
-		else
-		{
-			std::cout << "현재 가진 아이템이 없습니다" << std::endl;
-		}
+
 	}
 
 
