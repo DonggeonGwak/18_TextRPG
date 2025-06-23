@@ -31,10 +31,10 @@ private:
 public:
     Goblin(int playerLevel)
         : name("고블린") {
-        int minHP = playerLevel * 20;
-        int maxHP = playerLevel * 30;
-        int minAtk = playerLevel * 5;
-        int maxAtk = playerLevel * 10;
+        int minHP = playerLevel * 100;
+        int maxHP = playerLevel * 100;
+        int minAtk = playerLevel * 50;
+        int maxAtk = playerLevel * 50;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
         health = Maxhealth;
@@ -87,10 +87,10 @@ public:
     Orc(int playerLevel)
         : name("오크") 
     {
-        int minHP = playerLevel * 20;
-        int maxHP = playerLevel * 30;
-        int minAtk = playerLevel * 5;
-        int maxAtk = playerLevel * 10;
+        int minHP = playerLevel * 100;
+        int maxHP = playerLevel * 100;
+        int minAtk = playerLevel * 50;
+        int maxAtk = playerLevel * 50;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
         health = Maxhealth;
@@ -150,10 +150,10 @@ public:
     Troll(int playerLevel)
         : name("트롤") 
     {
-        int minHP = playerLevel * 20;
-        int maxHP = playerLevel * 30;
-        int minAtk = playerLevel * 5;
-        int maxAtk = playerLevel * 10;
+        int minHP = playerLevel * 100;
+        int maxHP = playerLevel * 100;
+        int minAtk = playerLevel * 50;
+        int maxAtk = playerLevel * 50;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
         health = Maxhealth;
@@ -212,10 +212,10 @@ public:
     Slime(int playerLevel)
         : name("슬라임") 
     {
-        int minHP = playerLevel * 20;
-        int maxHP = playerLevel * 30;
-        int minAtk = playerLevel * 5;
-        int maxAtk = playerLevel * 10;
+        int minHP = playerLevel * 100;
+        int maxHP = playerLevel * 100;
+        int minAtk = playerLevel * 50;
+        int maxAtk = playerLevel * 50;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
         health = Maxhealth;
