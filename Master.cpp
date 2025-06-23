@@ -23,6 +23,8 @@ void clearScreen()
 	system(CLEAR_COMMAND);
 }
 
+
+
 int main()
 {
 	GameManager manager; // GameManager 객체 생성

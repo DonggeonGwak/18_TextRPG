@@ -11,21 +11,21 @@
 #include <string>
 #include "Monster.h"
 #include "Character.h"
-#include "Fitem.h"
+#include "Item.h"
  // C++11부터 제공되는 난수 생성 라이브러리
 
 
 
-class GameManager 
+class GameManager
 {
 
 private:
-	int monsterskilled = 0; // 몬스터 처치 횟수
-	std::map<std::string, int> monsterKillCounts; // 몬스터별 처치 횟수
+    int monsterskilled = 0; // 몬스터 처치 횟수
+    std::map<std::string, int> monsterKillCounts; // 몬스터별 처치 횟수
     bool dragonDefeated = false;
 
 public:
-    bool isDragonDefeated() const 
+    bool isDragonDefeated() const
     {
         return dragonDefeated;
     }
@@ -53,45 +53,79 @@ public:
         }
     }
 
-    void battle(Character& player) {
+    void battle(Character& player)
+    {
         std::unique_ptr<Monster> monster = generateMonster(player.getLevel());
 
-        std::cout << "전투 시작이다냥 ! " << monster->getName() 
-                  << " 몬스터 등장 ! " << std::endl << std::endl;
+        std::cout << "전투 시작이다냥 ! " << monster->getName()
+            << " 몬스터 등장 ! " << std::endl << std::endl;
         std::cout << "=몬스터 스테이터스=" << std::endl;
 
         monster->displayinfo();
         std::cout << std::endl;
-         
-        while (true) {
+
+        while (true)
+        {
+            if (player.getHp() > 0 && player.getHp() <= (player.getMaxHeart() / 2))
+            {
+
+
+                auto inventory = player.getInventory();
+                Potion potion;
+                AttPotion attPotion;
+
+
+                // 1. HP포션이 있는지 확인하고 사용한다냥
+                if (inventory.count(potion.getName()) && inventory.at(potion.getName()) > 0)
+
+                {
+                    player.heal(potion.get());
+                    player.usedItem(potion.getName());
+                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "!! 주인님의 HP가 위험하다냥! " << potion.getName() << "을 사용한다냥! !!" << std::endl;
+                    std::cout << "\n========================================" << std::endl;
+                }
+                // 2. att포션이 있는지 확인하고 사용한다냥
+                if (inventory.count(attPotion.getName()) && inventory.at(attPotion.getName()) > 0)
+                {
+
+                    player.increaseAttack(attPotion.get());
+                    player.usedItem(attPotion.getName());
+                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "!! 주인님의 HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥! !!" << std::endl;
+                    std::cout << "\n========================================" << std::endl;
+                }
+
+
+            }
             // 플레이어 턴
             std::cout << "[주인님 턴] " << player.getName()
-                      << "의 냥냥펀치!!" << std::endl
-                      << player.getName() << "의 데미지 : "
-                      << player.getAttack();
+                << "의 냥냥펀치!!" << std::endl
+                << player.getName() << "의 데미지 : "
+                << player.getAttack();
 
             monster->takeDamage(player.getAttack());
             std::cout << std::endl;
 
-            std::cout << monster->getName() 
-                      << " HP: " << monster->getHealth()
-                      << "/" << monster->getMaxHealth()
-                      << std::endl << std::endl;
+            std::cout << monster->getName()
+                << " HP: " << monster->getHealth()
+                << "/" << monster->getMaxHealth()
+                << std::endl << std::endl;
 
-            if (monster->getHealth() <= 0) 
+            if (monster->getHealth() <= 0)
             {
                 std::cout << monster->getName() << " 처치 성공!\n" << std::endl;
-				monsterskilled++; // 몬스터 처치 횟수 증가
+                monsterskilled++; // 몬스터 처치 횟수 증가
                 monsterKillCounts[monster->getName()]++; // 몬스터 이름을 키로 하여 처치 횟수 증가
 
-				FItem* droppedItem = DropItem(monster.get()); // 몬스터가 아이템을 드롭하는 함수 호출
+                Item* droppedItem = DropItem(monster.get()); // 몬스터가 아이템을 드롭하는 함수 호출
                 if (droppedItem != nullptr)
                 {
                     player.addItem(droppedItem->getName());
                     delete droppedItem; // 아이템 사용 후 메모리 해제
                 }
 
-                if (monster->getName() == "드래곤") 
+                if (monster->getName() == "드래곤")
                 {
                     dragonDefeated = true;
                     std::cout << "주인님이 전설의 드래곤을 무찔렀다냥!!!\n" << std::endl;
@@ -99,16 +133,14 @@ public:
                     exit(0);
                 }
 
-                player.addExperiencePoint(50);
-				player.addGold(10, 20);
-				
-                
-               
+                player.addExperiencePoint(10);
+                player.addGold(10, 20);
+
 
                 if (player.getExperiencePoint() == player.getMaxExperiencePoint())
-                    {
+                {
                     player.LevelUp(player.getLevel());
-                    }
+                }
                 break;
             }
 
@@ -119,34 +151,60 @@ public:
                 << monster->getName() << "의 데미지 :"
                 << monster->getAttack() << std::endl;
             player.takeDamage(monster->getAttack());
-            std::cout << player.getName() 
-                      << " HP: " << player.getHp()
-                      << "/" << player.getMaxHeart()
-                      << std::endl;
-           
-            
 
-            if (player.getHp() <= 0) 
+
+
+
+
+            if (player.getHp() > 0 && player.getHp() <= (player.getMaxHeart() / 2))
+            {
+               
+
+                auto inventory = player.getInventory();
+                Potion potion;
+                AttPotion attPotion;
+                
+
+                // 1. HP포션이 있는지 확인하고 사용한다냥
+                if (inventory.count(potion.getName()) && inventory.at(potion.getName()) > 0)
+
+                {
+                    player.heal(potion.get());
+                    player.usedItem(potion.getName());
+                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "!! 주인님의 HP가 위험하다냥! " << potion.getName() <<"을 사용한다냥! !!" << std::endl;
+                    std::cout << "\n========================================" << std::endl;
+                }
+                // 2. att포션이 있는지 확인하고 사용한다냥
+                if (inventory.count(attPotion.getName()) && inventory.at(attPotion.getName()) > 0)
+                {
+                    
+                    player.increaseAttack(attPotion.get());
+                    player.usedItem(attPotion.getName());
+                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "!! 주인님의 HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥! !!" << std::endl;
+                    std::cout << "\n========================================" << std::endl;
+                }
+                
+                
+            }
+
+            std::cout << player.getName()
+                << " HP: " << player.getHp()
+                << "/" << player.getMaxHeart()
+                << std::endl;
+
+            if (player.getHp() <= 0)
             {
                 std::cout << player.getName() << "이(가) 쓰러졌습니다...\n";
-                break;
+                exit(0);
             }
-          
-            
-            if (player.getHp() < player.getMaxHeart() / 2)
-            {
 
-                Potion* potion =0;
-                player.usedItem(potion->getName());
-                player.heal(potion->get()); // 플레이어가 아이템을 사용하여 회복
-            }
-          /*  else if (player.getInventory().end() == player.getInventory().find(" "))
-            {
-                std::cout << "주인님, 인벤토리에 아이템이 없다냥! " << std::endl;
-            }
-            std::cout << "----------------------------------\n";*/
+
         }
+        std::cout << "----------------------------------\n";
     }
+
 void presentLog(Character& player)
 {
     std::cout << "========================================" << std::endl;
@@ -209,24 +267,21 @@ void displayMonsterKillCounts() const
         std::cout << "아직 몬스터를 처치하지 않았다냥!" << std::endl;
     }
 }
-
-FItem* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함수
+int getRandomNumber(int min, int max) {
+    static std::mt19937 gen(std::random_device{}());
+    std::uniform_int_distribution<int> dis(min, max);
+    return dis(gen);
+}
+Item* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함수
 {
-    int randval = rand() % 100; // 0부터 99까지의 랜덤 값 생성
-    if (randval > 90)
-    {
-        Weapon* weapon = new Weapon();
-        std::cout << monster->getName() << "이(가)" << weapon->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
-        return weapon;
-
-    }
-    else if (randval > 60)
+	int dropChance = getRandomNumber(1, 100); // 1부터 100 사이의 난수 생성
+   if (dropChance <= 30)
     {
         Potion* potion = new Potion();
         std::cout << monster->getName() << "이(가)" << potion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
         return potion;
     }
-    else if (randval > 30)
+    else if (dropChance <= 60)
     {
         AttPotion* attpotion = new AttPotion();
         std::cout << monster->getName() << "이(가)" << attpotion->getName() << "아이템을(를) 드롭했다냥!" << std::endl;
@@ -238,6 +293,5 @@ FItem* DropItem(Monster* monster) // 몬스터가 아이템을 드롭하는 함�
         return nullptr; // 아이템을 드롭하지 않은 경우
     }
 }
-
 
 };

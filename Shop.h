@@ -9,7 +9,7 @@
 class Shop
 {
 private:
-    std::vector<std::shared_ptr<FItem>> availableItems;
+    std::vector<std::shared_ptr<Item>> availableItems;
 
 public:
     Shop()
@@ -50,7 +50,7 @@ public:
             return;
         }
 
-        std::shared_ptr<FItem> itemToBuy = availableItems[actualIndex];
+        std::shared_ptr<Item> itemToBuy = availableItems[actualIndex];
 
         int itemPrice = 0;
         if (std::dynamic_pointer_cast<Potion>(itemToBuy))
@@ -86,7 +86,7 @@ public:
             return;
         }
 
-        std::shared_ptr<FItem> itemToSell = availableItems[actualIndex2];
+        std::shared_ptr<Item> itemToSell = availableItems[actualIndex2];
 
         int originalPrice = 0;
         if (std::dynamic_pointer_cast<Potion>(itemToSell))
