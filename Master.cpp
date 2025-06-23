@@ -24,6 +24,9 @@ void clearScreen()
 
 int main()
 {
+	// rand() 함수가 매번 다른 값을 생성하도록 시드 설정
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	GameManager manager; // GameManager 객체 생성
 	Character player; // Player 객체 생성
 	Goblin goblin(); // Goblin 객체 생성
@@ -77,6 +80,7 @@ int main()
 		if (choice == 1)
 		{
 			player.displayStatus(); // 플레이어 스텟 출력 함수 호출
+			player.ItemList(); // 플레이어 인벤토리 출력 함수 호출
 			cout << endl;
 		}
 		else if (choice == 2)
@@ -102,7 +106,7 @@ int main()
 			cout << "잘못된 입력값이다냥. 1,2,3,4 중에 입력하라냥." << endl;
 		}
 	}
-	cout << "만랩을 달성했습니다 ! 게임 클리어 !" << endl;
+	
 	manager.gameOverLog(player);
 
 	return 0;
