@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 #include "Character.h"
-#include "FItem.h"
+#include "Item.h"
 
 class Shop
 {
