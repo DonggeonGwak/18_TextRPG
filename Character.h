@@ -109,6 +109,11 @@ public:
 		return Gold;
 	}
 
+	auto getInventory() const
+	{
+		return Inventory;
+	}
+
 	// 전투에서 골드를 얻는 함수
 	void addGold(const int& minGold, const int& maxGold)
 	{
