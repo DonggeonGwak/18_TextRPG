@@ -1,11 +1,11 @@
 #pragma once
 #include<string>
 
-class FItem
+class Item
 {
 public:
 	
-	virtual ~FItem(){}
+	virtual ~Item(){}
 	virtual std::string getName() const = 0;
 	virtual int get() const = 0;
 protected:
@@ -14,7 +14,7 @@ protected:
 
 };
 
-class Potion:public FItem
+class Potion:public Item
 {
 private:
 	int m_heal;
@@ -27,14 +27,14 @@ public:
 	}
 	virtual std::string getName() const override
 	{
-		return "HP포션";
+		return "회복포션";
 	}
 	
 	
 
 };
 
-class AttPotion :public FItem
+class AttPotion :public Item
 {
 private:
 	int m_attIncrease;
@@ -43,7 +43,7 @@ public:
 	~AttPotion(){}
 	virtual std::string getName() const override
 	{
-		return "att포션";
+		return "공격력포션";
 	}
 	virtual int get() const override
 	{
@@ -53,22 +53,6 @@ public:
 
 };
 
-class Weapon:public FItem
-{
-private:
-
-	int m_damage;
-public:
-	Weapon():m_damage(50){}
-	virtual ~Weapon(){}
-	virtual std::string getName() const override
-	{
-		return "냥냥러브";
-	}
-	virtual int get() const override
-	{
-		return  m_damage;
-	}
 
 
 
