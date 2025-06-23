@@ -1,8 +1,6 @@
 # [2025 - 06 - 23] 텍스트 기반 RPG 게임
 
-### 프로젝트 소개
----
-**냥냥 대작전**
+# **🐱냥냥 대작전🐱**
 
 ### 개요
 ---
@@ -19,76 +17,96 @@
 ### 주요 기능
 ---
 
-- 캐릭터 생성, 능력치 확인
-- 몬스터와의 전투
-- 아이템 획득, 사용
-- 상점에서 아이템 구매
-- 레벨업과 능력치의 상승
+- **캐릭터 생성, 능력치 확인**
+- **몬스터와의 전투**
+- **아이템 획득 및 사용**
+- **상점에서 아이템 구매**
+- **레벨업과 능력치의 상승**
+- **게임 로그 시스템**
 
-- vector
-아이템 목록, 몬스터 목록
-- map, unordered_map
-인벤토리, 몬스터 처치 수 기록
-- string
-캐릭터 이름, 아이템 이름 처리
+---
 
-## 개발 환경
-사용한 언어 및 도구
-언어: C++
+### 개발 환경
 
-IDE: Visual Studio 2022
+- **언어**: C++
+- **IDE**: Visual Studio 2022
+- **Compiler**: MSVC v14.3 이상
+- **C++ 표준**: C++17 이상
+- **운영체제**: Windows 10 / 11
 
-Compiler: MSVC 14.3 이상
+---
 
-C++ 표준: C++17 이상
+### 실행 방법
 
-운영체제: Windows 11
+1. Visual Studio에서 새 콘솔 프로젝트 생성
 
+2. Character.h, Monster.h, GameManager.h, Shop.h, FItem.h, Monster.cpp, Master.cpp 모두 프로젝트에 추가
 
-### 빌드, 실행 방법
-Visual Studio 기준 (Windows 사용자)
-Visual Studio에서 새 콘솔 프로젝트 생성
+3. Master.cpp를 시작 파일로 설정
 
-Character.h, Monster.h, GameManager.h, Shop.h, FItem.h, Monster.cpp, Master.cpp 모두 프로젝트에 추가
+4. Ctrl + F5 또는 실행 버튼 클릭
 
-Master.cpp를 시작 파일로 설정
+---
 
-Ctrl + F5 또는 실행 버튼 클릭
+### 의존 라이브러리 / 패키지
+이 프로젝트는 따로 설치해야 하는 라이브러리는 존재하지 않습니다.
+기본적으로 C++에서 제공해주는 기능들만 사용하였습니다.
 
-(의존 라이브러리/패키지 넣기)
+**iostream**: 화면에 글자 보여주거나 입력 받을 때 씀
 
-MeowAdventure/
-Master.cpp           # 메인 게임 실행
-Character.h          # 캐릭터 관련 기능
-GameManager.h        # 전투 등 게임 진행 관리
-Monster.h            # 몬스터 종류
-FItem.h              # 아이템 종류
-Shop.h               # 상점 시스템
-README.md
+**string**: 문자열을 다룰 때 사용
+
+**vector**, **map**, **unordered_map**: 여러 개의 데이터를 저장할 때 사용
+
+**memory**: 스마트 포인터를 쓸 때 사용
+
+**cstdlib**, **ctime**: 랜덤 숫자를 만들기 위해 사용
+
+**random**: **cstdlib**, **ctime**보다 정밀한 랜덤 숫자 생성
+
+---
+
+*Master.cpp*      # 게임 루프
+
+*Character.h*     # 캐릭터 클래스
+
+*GameManager.h*   # 게임 전투 / 로그 관리
+
+*Monster.h*       # 몬스터 클래스 (고블린, 오크, 트롤, 슬라임, 드래곤)
+
+*Item.h*          # 아이템 클래스 (포션, 공격 포션)
+
+*Shop.h*          # 상점 클래스
+
+*README.md*       # 설명 문서
+
+---
 
 ### 주요 클래스 간단 설명
 
-Character
-플레이어의 체력, 공격력, 골드, 레벨, 아이템 등을 관리
+**Character**: 플레이어의 체력, 공격력, 골드, 레벨, 아이템 등을 관리
 
-Monster
-몬스터 기본 클래스. Goblin, Orc, Troll, Slime, Dragon 같은 몬스터가 상속
+**Monster**: 몬스터 기본 클래스. Goblin, Orc 같은 몬스터가 상속
 
-FItem
-아이템 공통 틀. 포션, 무기
+**FItem**: 아이템 추상 클래스. 포션, 무기
 
-GameManager
-전투 진행, 아이템, 레벨업, 로그 출력 관리
+**GameManager**: 전투 진행, 아이템, 레벨업, 로그 출력 관리
 
-Shop
-골드로 아이템을 살 수 있는 상점
+**Shop**: 골드로 아이템을 거래 할 수 있는 상점
+
+---
 
 ## 추가 구현 사항
-드래곤 등장 시 게임 클리어 처리 및 결과 로그 출력
 
-전투 시 랜덤 아이템 드랍
+- **드래곤 등장 시 게임 클리어 처리 및 결과 로그 출력**
 
-몬스터별 처치 수 기록 기능
+- **전투 시 랜덤 아이템 드랍**
+
+- **몬스터별 처치 수 기록 기능**
+
+- **체력이 절반 이하로 떨어지면 자동으로 포션 사용**
+
+- 상점에서 골드로 아이템을 구매 / 판매 가능**
 
 ------
 
