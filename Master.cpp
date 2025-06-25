@@ -40,7 +40,7 @@ int main()
 	string CharacterName;
 	cout << "========================================" << endl;
 	cout << "=                                      =" << endl;
-	cout << "=   냥냥 월드에 오신 것을 환영한다냥!  =" << endl;
+	cout << "= <<주인님과 고양이의 수수께끼 모험>>  =" << endl;
 	cout << "=                                      =" << endl;
 	cout << "=      주인님! 이름을 알려달라냥!      =" << endl;
 	cout << "=                                      =" << endl;
@@ -57,10 +57,10 @@ int main()
 	{
 		cout << "========================================" << endl;
 		cout << "=                                      =" << endl;
-		cout << "=        무엇을 하고 싶냥??            =" << endl;
+		cout << "=       뭐 하고 싶은 기분이냥?         =" << endl;
 		cout << "=                                      =" << endl;
 		cout << "=      1. 주인님 정보 확인             =" << endl;
-		cout << "=      2. 냥냥 모험 시작               =" << endl;
+		cout << "=      2. 모험 시작                    =" << endl;
 		cout << "=      3. 상점                         =" << endl;
 		cout << "=      4. 현재 로그 사용               =" << endl;
 		cout << "=      5. 게임 종료                    =" << endl;
@@ -97,13 +97,14 @@ int main()
 			int shopchoice;
 			cout << "1. 아이템 구매" << endl;
 			cout << "2. 아이템 판매" << endl;
+			cout << "3. 상점 나가기" << endl;
 			cout << "입력 : ";
 			cin >> shopchoice;
 
 			if (shopchoice == 1)
 			{
 				int index1;
-				cout << "구매할 아이템을 선택하세요 : ";
+				cout << "구매할 아이템을 선택하라냥 : ";
 				cin >> index1;
 				shop.buyItem(index1, player);
 			}
@@ -113,6 +114,10 @@ int main()
 				cout << "판매할 아이템 : ";
 				cin >> index2;
 				shop.sellItem(index2, player);
+			}
+			else if (shopchoice == 3)
+			{
+				clearScreen();
 			}
 			else
 			{
@@ -134,7 +139,7 @@ int main()
 			cout << "잘못된 입력값이다냥. 1,2,3,4 중에 입력하라냥." << endl;
 		}
 	}
-	cout << "만랩을 달성했습니다 ! 게임 클리어 !" << endl;
+	
 	manager.gameOverLog(player);
 
 	return 0;

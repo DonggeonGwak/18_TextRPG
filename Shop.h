@@ -20,7 +20,9 @@ public:
 
     void displayItems() const
     {
-        std::cout << "================ 상점 ================" << std::endl;
+        std::cout << "어!? 저기 사람이 보인다냥!!" << std::endl;
+        std::cout << "숲속의 떠돌이 상인 : 원하는 물약이 있으신가?" << std::endl;
+        std::cout << "================ 상인의 보따리 ================" << std::endl;
 
         
         for (size_t i = 0; i < availableItems.size(); ++i)
@@ -37,7 +39,7 @@ public:
             }
             std::cout << i + 1 << ". " << availableItems[i]->getName() << " - " << itemPrice << " Gold" << std::endl;
         }
-        std::cout << "======================================" << std::endl;
+        std::cout << "===============================================" << std::endl;
     }
 
     void buyItem(int index, Character& player)
@@ -46,7 +48,7 @@ public:
 
         if (actualIndex < 0 || actualIndex >= availableItems.size())
         {
-            std::cout << "잘못된 아이템 번호입니다. 다시 확인해주세요." << std::endl;
+            std::cout << "잘못된 아이템 번호다냥. 다시 확인해달라냥." << std::endl;
             return;
         }
 
@@ -67,12 +69,12 @@ public:
             player.setGold(player.getGold() - itemPrice);
             player.addItem(itemToBuy->getName());
 
-            std::cout << itemToBuy->getName() << "을(를) " << itemPrice << " Gold에 구매했습니다!" << std::endl;
+            std::cout << itemToBuy->getName() << "을(를) " << itemPrice << " 골드에 구매했다냥!" << std::endl;
             std::cout << "남은 골드: " << player.getGold() << std::endl;
         }
         else
         {
-            std::cout << "골드가 부족합니다! (필요: " << itemPrice << " Gold, 현재: " << player.getGold() << " Gold)" << std::endl;
+            std::cout << "골드가 부족하다냥! (필요: " << itemPrice << " 골드, 현재: " << player.getGold() << " 골드)" << std::endl;
         }
     }
 
@@ -82,7 +84,7 @@ public:
 
         if (actualIndex2 < 0 || actualIndex2 >= availableItems.size())
         {
-            std::cout << "잘못된 아이템 번호입니다. 다시 확인해주세요." << std::endl;
+            std::cout << "잘못된 아이템 번호다냥. 다시 확인해달라냥." << std::endl;
             return;
         }
 
@@ -104,7 +106,7 @@ public:
 
         player.setGold(player.getGold() + sellPrice);
 
-        std::cout << itemToSell->getName() << "을(를) " << sellPrice << " Gold에 판매했습니다!" << std::endl;
+        std::cout << itemToSell->getName() << "을(를) " << sellPrice << " 골드에 판매했다냥!" << std::endl;
         std::cout << "현재 골드: " << player.getGold() << std::endl;
     }
 };

@@ -31,7 +31,7 @@ public:
     }
     std::unique_ptr<Monster> generateMonster(int playerLevel) {
         if (playerLevel >= 10) {
-            std::cout << "\n⚠️ 전설의 드래곤이 출현했다냥! ⚠️\n" << std::endl;
+            std::cout << "\n 전설의 드래곤이 출현했다냥! \n" << std::endl;
             return std::make_unique<Dragon>();
         }
 
@@ -73,36 +73,11 @@ public:
                 auto inventory = player.getInventory();
                 Potion potion;
                 AttPotion attPotion;
-
-
-                // 1. HP포션이 있는지 확인하고 사용한다냥
-                if (inventory.count(potion.getName()) && inventory.at(potion.getName()) > 0)
-
-                {
-                    player.heal(potion.get());
-                    player.usedItem(potion.getName());
-                    std::cout << "\n========================================" << std::endl;
-                    std::cout << "주인님 ! HP가 위험하다냥! " << potion.getName() << "을 사용한다냥 !" << std::endl;
-                    std::cout << "주인님의 체력이 " << potion.get() << " 만큼 회복되었다냥 !" << std::endl;
-                    std::cout << "\n========================================" << std::endl;
-                }
-                // 2. att포션이 있는지 확인하고 사용한다냥
-                if (inventory.count(attPotion.getName()) && inventory.at(attPotion.getName()) > 0)
-                {
-
-                    player.increaseAttack(attPotion.get());
-                    player.usedItem(attPotion.getName());
-                    std::cout << "\n========================================" << std::endl;
-                    std::cout << "주인님 ! HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥 !" << std::endl;
-                    std::cout << "주인님의 공격력이 " << attPotion.get() << " 만큼 증가되었다냥 !" << std::endl;
-                    std::cout << "\n========================================" << std::endl;
-                }
-
-
+                                            
             }
             // 플레이어 턴
             std::cout << "[주인님 턴] " << player.getName()
-                << "의 냥냥펀치!!" << std::endl
+                << "의 주인님의 공격!!" << std::endl
                 << player.getName() << "의 데미지 : "
                 << player.getAttack();
 
@@ -127,7 +102,7 @@ public:
                     delete droppedItem; // 아이템 사용 후 메모리 해제
                 }
 
-                if (monster->getName() == "드래곤")
+                if (monster->getName() == "전설의 드래곤")
                 {
                     dragonDefeated = true;
                     std::cout << "주인님이 전설의 드래곤을 무찔렀다냥!!!\n" << std::endl;
@@ -135,7 +110,7 @@ public:
                     exit(0);
                 }
 
-                player.addExperiencePoint(10);
+                player.addExperiencePoint(50);
                 player.addGold(10, 20);
 
 
@@ -177,9 +152,10 @@ public:
                 {
                     player.heal(potion.get());
                     player.usedItem(potion.getName());
-                    std::cout << "\n========================================" << std::endl;
-                    std::cout << "!! 주인님의 HP가 위험하다냥! " << potion.getName() <<"을 사용한다냥! !!" << std::endl;
-                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "========================================" << std::endl;
+                    std::cout << "주인님의 HP가 위험하다냥! " << potion.getName() <<"을 사용한다냥 !" << std::endl;
+                    std::cout << "주인님의 체력이 " << potion.get() << " 만큼 회복되었다냥 !" << std::endl;
+                    std::cout << "========================================" << std::endl << std::endl;
                 }
                 // 2. att포션이 있는지 확인하고 사용한다냥
                 if (inventory.count(attPotion.getName()) && inventory.at(attPotion.getName()) > 0)
@@ -187,9 +163,10 @@ public:
                     
                     player.increaseAttack(attPotion.get());
                     player.usedItem(attPotion.getName());
-                    std::cout << "\n========================================" << std::endl;
-                    std::cout << "!! 주인님의 HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥! !!" << std::endl;
-                    std::cout << "\n========================================" << std::endl;
+                    std::cout << "========================================" << std::endl;
+                    std::cout << "주인님의 HP가 위험하다냥!" << attPotion.getName() << "을 사용한다냥 !" << std::endl;
+                    std::cout << "주인님의 공격력이 " << attPotion.get() << " 만큼 증가되었다냥 !" << std::endl;
+                    std::cout << "========================================" << std::endl << std::endl;
                 }
                 
                 
@@ -197,7 +174,7 @@ public:
 
             if (player.getHp() <= 0)
             {
-                std::cout << player.getName() << "이(가) 쓰러졌습니다...\n";
+                std::cout << player.getName() << "이(가) 쓰러졌다냥...\n";
                 exit(0);
             }
 
@@ -209,7 +186,7 @@ public:
 void presentLog(Character& player)
 {
     std::cout << "========================================" << std::endl;
-    std::cout << "=       - 냥냥 모험의 진행 상황 -      =" << std::endl;
+    std::cout << "=          - 여행의 진행 상황 -        =" << std::endl;
     std::cout << "========================================" << std::endl;
     std::cout << "지금까지의 주인님 기록이다냥!" << std::endl;
     std::cout << "처치한 몬스터: " << monsterskilled << " 마리" << std::endl;
@@ -224,7 +201,7 @@ void gameOverLog(Character& player)
     std::cout << "          ========    ========          " << std::endl;
     std::cout << "      ============================      " << std::endl;
     std::cout << "   ====                          ====  " << std::endl;
-    std::cout << " ==        - 냥냥 모험의 결과 -      ==" << std::endl;
+    std::cout << " ==          - 여행의 결과 -        ==" << std::endl;
     std::cout << "   ====                          ====  " << std::endl;
     std::cout << "      =====                 =====      " << std::endl;
     std::cout << "         =====================         " << std::endl;

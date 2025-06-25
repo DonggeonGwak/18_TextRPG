@@ -31,9 +31,9 @@ private:
 public:
     Goblin(int playerLevel)
         : name("고블린") {
-        int minHP = playerLevel * 50;
+        int minHP = playerLevel * 45;
         int maxHP = playerLevel * 50;
-        int minAtk = playerLevel * 20;
+        int minAtk = playerLevel * 15;
         int maxAtk = playerLevel * 20;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
@@ -87,9 +87,9 @@ public:
     Orc(int playerLevel)
         : name("오크") 
     {
-        int minHP = playerLevel * 50;
+        int minHP = playerLevel * 45;
         int maxHP = playerLevel * 50;
-        int minAtk = playerLevel * 20;
+        int minAtk = playerLevel * 15;
         int maxAtk = playerLevel * 20;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
@@ -150,9 +150,9 @@ public:
     Troll(int playerLevel)
         : name("트롤") 
     {
-        int minHP = playerLevel * 50;
+        int minHP = playerLevel * 45;
         int maxHP = playerLevel * 50;
-        int minAtk = playerLevel * 20;
+        int minAtk = playerLevel * 15;
         int maxAtk = playerLevel * 20;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
@@ -212,9 +212,9 @@ public:
     Slime(int playerLevel)
         : name("슬라임") 
     {
-        int minHP = playerLevel * 50;
+        int minHP = playerLevel * 45;
         int maxHP = playerLevel * 50;
-        int minAtk = playerLevel * 20;
+        int minAtk = playerLevel * 15;
         int maxAtk = playerLevel * 20;
 
         Maxhealth = getRandomInRange(minHP, maxHP);
@@ -265,7 +265,7 @@ private:
 
 public:
     Dragon()
-        : name("드래곤")
+        : name("전설의 드래곤")
     {
         Maxhealth = 500;
         health = Maxhealth;
@@ -300,7 +300,7 @@ public:
 
     void displayinfo() const override
     {
-        std::cout << "[보스 몬스터 등장]" << std::endl;
+        std::cout << "[전설의 드래곤 등장]" << std::endl;
         std::cout << "몬스터 : " << name
             << "\n최대체력 : " << Maxhealth
             << "\n공격력 : " << attack << std::endl;

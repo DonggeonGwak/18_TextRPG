@@ -160,11 +160,11 @@ public:
 			Hp += (MaxHeart - Hp);
 			Attack += (Level * 5);
 			ExperiencePoint = 0;
-			std::cout << "level이 올랐습니다! 현재 level: " << Level << std::endl;
+			std::cout << "레벨이 올랐습니다! 현재 레벨: " << Level << std::endl;
 		}
 		else
 		{
-			std::cout << "최대레벨입니다! 더 이상 level Up이 불가능 합니다." << std::endl;
+			std::cout << "최대레벨입니다! 더 이상 레벨업이 불가능 합니다." << std::endl;
 		}
 	}
 
