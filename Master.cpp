@@ -92,36 +92,46 @@ int main()
 	
 		else if (choice == 3)
 		{
-			shop.displayItems();
+			while (true)
+			{
+				shop.displayItems();
 
-			int shopchoice;
-			cout << "1. 아이템 구매" << endl;
-			cout << "2. 아이템 판매" << endl;
-			cout << "3. 상점 나가기" << endl;
-			cout << "입력 : ";
-			cin >> shopchoice;
+				int shopchoice;
+				cout << "1. 아이템 구매" << endl;
+				cout << "2. 아이템 판매" << endl;
+				cout << "3. 상점 나가기" << endl;
+				cout << "입력 : ";
+				cin >> shopchoice;
 
-			if (shopchoice == 1)
-			{
-				int index1;
-				cout << "구매할 아이템을 선택하라냥 : ";
-				cin >> index1;
-				shop.buyItem(index1, player);
-			}
-			else if (shopchoice == 2)
-			{
-				int index2;
-				cout << "판매할 아이템 : ";
-				cin >> index2;
-				shop.sellItem(index2, player);
-			}
-			else if (shopchoice == 3)
-			{
-				clearScreen();
-			}
-			else
-			{
-				cout << "잘못된 입력" << endl;
+				if (shopchoice == 1)
+				{
+					int index1;
+					cout << "구매할 아이템을 선택하라냥 : ";
+					cin >> index1;
+					clearScreen();
+					shop.buyItem(index1, player);
+					cout << endl;
+					
+				}
+				else if (shopchoice == 2)
+				{
+					int index2;
+					cout << "판매할 아이템 : ";
+					cin >> index2;
+					clearScreen();
+					shop.sellItem(index2, player);
+					cout << endl;
+					
+				}
+				else if (shopchoice == 3)
+				{
+					clearScreen();
+					break;
+				}
+				else
+				{
+					cout << "잘못된 입력입니다." << endl;
+				}
 			}
 		}
 		else if (choice == 4)

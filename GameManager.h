@@ -76,8 +76,8 @@ public:
                                             
             }
             // 플레이어 턴
-            std::cout << "[주인님 턴] " << player.getName()
-                << "의 주인님의 공격!!" << std::endl
+            std::cout << "[플레이어 턴] " << player.getName()
+                << "의 공격!!" << std::endl
                 << player.getName() << "의 데미지 : "
                 << player.getAttack();
 
@@ -125,7 +125,7 @@ public:
             std::cout << "[몬스터 턴] "
                 << monster->getName()
                 << "의 공격!" << std::endl
-                << monster->getName() << "의 데미지 :"
+                << monster->getName() << "의 데미지 : "
                 << monster->getAttack() << std::endl;
             player.takeDamage(monster->getAttack());
             std::cout << player.getName()

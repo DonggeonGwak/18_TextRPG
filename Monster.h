@@ -267,9 +267,9 @@ public:
     Dragon()
         : name("전설의 드래곤")
     {
-        Maxhealth = 500;
+        Maxhealth = 2500;
         health = Maxhealth;
-        attack = 70;
+        attack = 100;
     }
 
     std::string getName() const override
