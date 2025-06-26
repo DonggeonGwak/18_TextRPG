@@ -1,1 +1,7 @@
-﻿  TEXTRPG.vcxproj -> C:\Git\First solution\TEXTRPG\x64\Debug\TEXTRPG.exe
+﻿  Character.cpp
+  GameManager.cpp
+  Item.cpp
+  Monster.cpp
+  shop.cpp
+  Generating Code...
+  TEXTRPG.vcxproj -> C:\Git\18_TextRPG\TEXTRPG\x64\Debug\TEXTRPG.exe
